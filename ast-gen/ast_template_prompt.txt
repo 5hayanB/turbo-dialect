@@ -1,0 +1,46 @@
+Generate an abstract syntax tree about <user description>
+
+The form in which the abstract syntax tree is to be generated is as follows:
+```
+component:
+    name 'name'
+    type 'type'
+    inputs:
+        in1:
+            name 'name'
+            width 1
+        in2:
+            name 'name'
+            width 1
+    outputs:
+        out1:
+            name 'name'
+            width 1
+        out2:
+            name 'name'
+            width 1
+    decls:
+        decl1:
+            name 'name'
+            class 'class'
+            width 32
+            type 'type'
+        decl2:
+            name 'name'
+            class 'class'
+            width 32
+            type 'type'
+```
+The root node will always be called "component" and it will represent the top module name of the circuit. Each line not having a colon is the leaf node while the lines containing a colon are the intermediary nodes. "decl" nodes represent instantiations of submodules like adders, registers, memory, etc. Subsequent nodes of the "decl" nodes are incrementally named "decl1, decl2, decl3..." The width nodes define the width of the ports or submodules, depending on the context. The "type" node represents the signed or unsigned nature of the values. The "type" child node of the "component" node represents either combinational or non-combinational type only, no other value is given to the "type" child node of the "component" node. The “class” nodes of each “decl” node has the values with their description written in their brackets.
+“memory” (memory bank)
+“register” (register)
+“add” (adder)
+“and” (and gate)
+“divs” (signed division)
+“divu” (unsigned division)
+“eq” (equal)
+“ge” (greater than equal)
+“gt” (greater than)
+“le” (less than equal)
+“lsh” ()
+“”

@@ -1,0 +1,52 @@
+component:
+    name 'name'
+    type 'type'
+    inputs:
+        in1:
+            name 'name'
+            width 1
+        in2:
+            name 'name'
+            width 1
+        ...
+    outputs:
+        out1:
+            name 'name'
+            width 1
+        out2:
+            name 'name'
+            width 1
+        ...
+    decls:
+        decl1:
+            name 'name'
+            class 'register'
+            width 32
+            type 'type'
+        decl2:
+            name 'name'
+            class 'adder'
+            width 32
+            type 'type'
+        ...
+    wires:
+        group1:
+            name 'name'
+            type 'type'
+            assign1:
+                dest 'name'
+                src 'name'
+                guard 'name'
+            assign2:
+                dest 'name'
+                src 'name'
+        group2:
+            name 'name'
+            type 'type'
+            assign1:
+                dest 'name'
+                src 'name'
+                guard 'name'
+            assign2:
+                dest 'name'
+                src 'name'
