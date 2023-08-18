@@ -8,7 +8,6 @@ component:
         in2:
             name 'name'
             width 1
-        ...
     outputs:
         out1:
             name 'name'
@@ -16,7 +15,6 @@ component:
         out2:
             name 'name'
             width 1
-        ...
     decls:
         decl1:
             name 'name'
@@ -28,7 +26,6 @@ component:
             class 'adder'
             width 32
             type 'type'
-        ...
     wires:
         group1:
             name 'name'
