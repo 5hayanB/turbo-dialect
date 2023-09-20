@@ -43,4 +43,7 @@ The root node will always be called "component" and it will represent the top mo
 “gt” (greater than)
 “le” (less than equal)
 “lsh” (left shift logical)
-“”
+“lt” (less than)
+"mul" (multiply)
+"neq" (not equal to)
+"not" (inversion)
