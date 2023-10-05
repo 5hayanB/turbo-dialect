@@ -5,45 +5,45 @@ component:
         in1:
             name 'name'
             width 1
-        in2:
-            name 'name'
-            width 1
     outputs:
         out1:
             name 'name'
             width 1
-        out2:
-            name 'name'
-            width 1
-    decls:
-        decl1:
+    cells:
+        cell1:
             name 'name'
             class 'register'
-            width 32
-            type 'type'
-        decl2:
-            name 'name'
-            class 'adder'
-            width 32
+            params 'param1=value,param2=value'
             type 'type'
     wires:
+        assign1:
+            dest 'name'
+            src 'name'
+            guard 'name'
         group1:
             name 'name'
             type 'type'
-            assign1:
-                dest 'name'
-                src 'name'
-                guard 'name'
             assign2:
                 dest 'name'
                 src 'name'
-        group2:
-            name 'name'
-            type 'type'
-            assign1:
-                dest 'name'
-                src 'name'
                 guard 'name'
-            assign2:
+            assign3:
                 dest 'name'
                 src 'name'
+            done 'done_cond'
+    control:
+        seq1:
+            group 'name'
+        par1:
+            group 'name'
+        if1:
+            port 'name'
+            comb_group 'name'
+            group 'name'
+            else 'name'
+        while1:
+            port 'name'
+            comb_group 'name'
+            group 'name'
+        repeat1:
+            group 'name'
