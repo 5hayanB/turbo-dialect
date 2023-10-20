@@ -1,0 +1,49 @@
+component:
+    name 'name'
+    type 'type'
+    inputs:
+        in_1 -> n:
+            name 'name'
+            width 1
+    outputs:
+        out_1 -> n:
+            name 'name'
+            width 1
+    cells:
+        cell_1 -> n:
+            name 'name'
+            class 'register'
+            params 'param1=value,param2=value'
+            type 'type'
+    wires:
+        assign1 -> n:
+            dest 'name'
+            src 'name'
+            guard 'name'
+        group1 -> n:
+            name 'name'
+            type 'type'
+            assign_2 -> n:
+                dest 'name'
+                src 'name'
+                guard 'name'
+            assign_3 -> n:
+                dest 'name'
+                src 'name'
+            done 'done_cond'
+    control:
+        seq_1 -> n:
+            group 'name'
+        par_1 -> n:
+            group 'name'
+        if_1 -> n:
+            port 'name'
+            comb_group 'name'
+            group 'name'
+            else 'name'
+        while_1 -> n:
+            port 'name'
+            comb_group 'name'
+            group 'name'
+        repeat_1 -> n:
+            group 'name'

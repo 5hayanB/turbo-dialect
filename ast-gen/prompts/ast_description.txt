@@ -1,0 +1,48 @@
+Each line not containing a colon is a leaf node while the lines containing a colon are the intermediary nodes.
+
+
+Each line not containing a colon is a leaf node while the lines containing a colon are the intermediary nodes.
+The root node will always be called "component" and it will represent the top module of the circuit.
+The "type" leaf node of the "component" node represents that either the module is combinational or non-combinational.
+The "inputs" node contains the input port nodes, incrementally named "in1, in2, in3, ...".
+The "outputs" node contains the output port nodes, incrementally named "out1, out2, out3, ...".
+The "width" leaf node indicates the bit width of the input and the output ports.
+The "cells" nodes contains information of submodules, incrementally named "cell1, cell2, cell3, ...".
+The "class" node represents the type of submodules and the "params" node contains the parameters of the respective submodule.
+Following are the values of the "class" and "params" nodes.
+'reg'-'width' (register)
+'const'-'width,val' (constant value)
+'lsh'-'width' (left shift logical)
+'rsh'-'width' (right shift logical)
+'add'-'width' (adder)
+'sub'-'width' (subtraction)
+'slice'-'in_width,out_width' (slice out lower out_width bits of an in_width-bit value)
+'pad'-'in_width,out_width' (zero pad from the left of an in_width-bit input to an output of out_width-bits)
+'not'-'width' (bitwise NOT)
+'and'-'width' (bitwise and)
+'or'-'width' (bitwise or)
+'xor'-'width' (bitwise xor)
+'gt'-'width' (greater than)
+'lt'-'width' (less than)
+'eq'-'width' (equality)
+'neq'-'width' (not equal)
+'ge'-'width' (greater than or equal)
+'le'-'width' (less than or equal)
+The value before the "-" is the "class" node while the value after the "-" is the "params" node whose values are integers, with the description of each in parenthesis.
+The "type" leaf node of the "cell1, cell2, cell3, ..." nodes represents that either the module is a primitive or component. All the aforementioned classes are primitives while another abstract tree starting with the "component" node is a component.
+The "wires" nodes contains information of assignments and group of assignments, incrementally named "assign1, assign2, assign3, ..." and "group1, group2, group3, ..." respectively.
+The "dest" nodes are the destination end point of the assignment connection.
+The "src" nodes are the source end point of the assignment connection.
+The "guard" nodes are logical expressions that produce 1-bit values and allows further propagation of "src" nodes. These are optional and can be left as an empty string if no guard is needed.
+The "type" leaf node of the "group1, group2, group3, ..." nodes represent that either the group is combinational or non-combinational.
+The "done" nodes tell when the execution of a "group" is complete.
+The "control" nodes tells the circuit layout.
+The incrementally named "seq1, seq2, seq3, ..." nodes express sequential execution of groups.
+The incrementally named "par1, par2, par3, ..." nodes express parallel execution of groups.
+The incrementally named "if1, if2, if3, ..." nodes express conditional execution of groups.
+The "port" node is the 1 bit port of a cell that will run the group in the "group" leaf node of "if1, if2, if3, ...".
+The "comb_group" node is the group with the combinational type that computes the value of the "port" node.
+The "else" node executes the groups if the "port" condition is false.
+The incrementally named "repeat1, repeat2, repeat3, ..." nodes repeatedly execute the groups for num number of times.
+The "num" node tells the number of times the groups have to be repeatedly executed.
+The "group" nodes are the same values as the "name" nodes of the "group1, group2, group3, ..." nodes. There can be multiple non-repeating "group" nodes.
