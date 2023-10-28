@@ -1,0 +1,93 @@
+component:
+  name 'name'
+  type 'type'
+  inputs:
+    in1_0:
+      name 'name'
+      width 1
+  outputs:
+    out1_0:
+      name 'name'
+      width 1
+  cells:
+    cell1_0:
+      name 'name'
+      class 'register'
+      params 'param1=value,param2=value'
+      type 'type'
+    cell1_1:
+      name 'name'
+      class 'register'
+      params 'param1=value,param2=value'
+      type 'type'
+  wires:
+    assign1_0:
+      dest 'name'
+      src 'name'
+      guard 'name'
+    assign1_1:
+      dest 'name'
+      src 'name'
+      guard 'name'
+    assign1_2:
+      dest 'name'
+      src 'name'
+      guard 'name'
+    assign1_3:
+      dest 'name'
+      src 'name'
+      guard 'name'
+    group1_0:
+      name 'name'
+      type 'type'
+      assign2_0:
+        dest 'name'
+        src 'name'
+        guard 'name'
+      assign3_0:
+        dest 'name'
+        src 'name'
+      done 'done_cond'
+    group1_1:
+      name 'name'
+      type 'type'
+      assign2_1:
+        dest 'name'
+        src 'name'
+        guard 'name'
+      assign3_1:
+        dest 'name'
+        src 'name'
+      done 'done_cond'
+    group1_2:
+      name 'name'
+      type 'type'
+      assign2_2:
+        dest 'name'
+        src 'name'
+        guard 'name'
+      assign3_2:
+        dest 'name'
+        src 'name'
+      done 'done_cond'
+  control:
+    seq1_0:
+      group 'name'
+    par1_0:
+      group 'name'
+    if1_0:
+      port 'name'
+      comb_group 'name'
+      group 'name'
+      else 'name'
+    if1_1:
+      port 'name'
+      comb_group 'name'
+      group 'name'
+      else 'name'
+    while1_0:
+      port 'name'
+      comb_group 'name'
+      group 'name'
+    repeat1_0:
+      group 'name'
