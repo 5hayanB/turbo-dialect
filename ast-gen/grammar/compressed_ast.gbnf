@@ -1,0 +1,63 @@
+root ::= component
+
+identifier ::= [a-zA-Z] [a-zA-Z0-9]*
+natural_num ::= [1-9] [0-9]*
+whole_num ::= 0 | natural_num
+
+name ::= "name:" identifier
+component_comb ::= "comb:" ("true" | "false")
+width ::= "width:" natural_num
+in_width ::= "inWidth:" natural_num
+out_width ::= "outWidth:" natural_num
+dest ::= "dest:" identifier
+src ::= "src:" identifier
+guard ::= "grd:" identifier
+done ::= "done:"
+control_group ::= "grp:" identifier
+port ::= "port:" identifier
+comb_group ::= "combGrp:" identifier
+num ::= "num:" natural_num
+one_param_class ::= "class:" ("reg"
+    | "const"
+    | "lsh"
+    | "rsh"
+    | "add"
+    | "sub"
+    | "not"
+    | "and"
+    | "or"
+    | "xor"
+    | "gt"
+    | "lt"
+    | "eq"
+    | "neq"
+    | "ge"
+    | "le")
+two_param_class ::= "class:" ("slice" | "pad")
+params ::= width | in_width "," out_width
+
+ports ::= "in" whole_num "->" natural_num "{" name "," width "}"
+port_list ::= ports+
+inputs ::= "inputs{" port_list "}"
+outputs ::= "outputs{" port_list "}"
+
+primitive ::= (one_param_class "," params) | (two_param_class "," params "," params)
+cell ::= "cell" whole_num "->" natural_num "{" name "," primitive "}"
+cells ::= "cells{" cell+ "}"
+
+assignment ::= "assign" whole_num "->" natural_num "{" dest "," src "," guard "}"
+group ::= "grp" whole_num "->" natural_num "{" name "," assignment+ done "}"
+wire_child ::= assignment | group
+wire ::= (assignment | group) wire_child*
+wires ::= "wires{" wire+ "}"
+
+control_child ::= seq | par | if | while | repeat
+seq ::= "seq" whole_num "->" natural_num "{" (control_group+ | (control_group ",")* control_child+) "}"
+par ::= "par" whole_num "->" natural_num "{" (control_group+ | (control_group ",")* control_child+) "}"
+if ::= "if" whole_num "->" natural_num "{" port "," comb_group "," (control_group+ | (control_group ",")* control_child+) "," else "}"
+else ::= "else" whole_num "->" natural_num "{" (control_group+ | (control_group ",")* control_child+) "}"
+while ::= "while" whole_num "->" natural_num "{" port "," comb_group "," (control_group+ | (control_group ",")* control_child+) "}"
+repeat ::= "repeat" whole_num "->" natural_num "{" num "," (control_group+ | (control_group ",")* control_child+) "}"
+control ::= "ctrl{" control_child+ "}"
+
+component ::= "cmpnt{" name "," component_comb "," inputs outputs cells wires control

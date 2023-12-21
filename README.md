@@ -2,5 +2,5 @@
 
 ## Setup
 ```zsh
-git clone --recurse-submodules https://github.com/merledu/turbo-dialect.git
+git clone https://github.com/merledu/turbo-dialect.git
 ```
