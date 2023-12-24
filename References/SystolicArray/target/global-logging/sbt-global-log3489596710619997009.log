@@ -1,0 +1,20 @@
+[0m[[0m[0mdebug[0m] [0m[0m> Exec(testOnly simd.SIMDTest -- -DWriteVcd=1, Some(6882d303-5297-4694-8996-14f4d9454825), Some(CommandSource(console0)))[0m
+[0m[[0m[0mdebug[0m] [0m[0mEvaluating tasks: Test / testOnly[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
+[0m[[0m[0minfo[0m] [0m[0mcompiling 1 Scala source to /home/talha/Desktop/SystolicArray/target/scala-2.12/test-classes ...[0m
+[0m[[0m[33mwarn[0m] [0m[0mthere was one deprecation warning (since 3.1.0)[0m
+[0m[[0m[33mwarn[0m] [0m[0mthere were 8 deprecation warnings (since Chisel 3.5)[0m
+[0m[[0m[33mwarn[0m] [0m[0mthere was one deprecation warning (since chiseltest 0.5)[0m
+[0m[[0m[33mwarn[0m] [0m[0mthere were 10 deprecation warnings in total; re-run with -deprecation for details[0m
+[0m[[0m[33mwarn[0m] [0m[0mthere were 14 feature warnings; re-run with -feature for details[0m
+[0m[[0m[33mwarn[0m] [0m[0m5 warnings found[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mSIMDTest:[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- SIMD[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[36mRun completed in 4 seconds, 300 milliseconds.[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[36mTotal number of tests run: 1[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[36mSuites: completed 1, aborted 0[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[36mTests: succeeded 1, failed 0, canceled 0, ignored 0, pending 0[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mAll tests passed.[0m[0m
+[0m[[0m[32msuccess[0m] [0m[0mTotal time: 7 s, completed Dec 24, 2023, 1:02:06 PM[0m
+[0m[[0m[0mdebug[0m] [0m[0m> Exec(shell, None, None)[0m
+[0m[[0m[0minfo[0m] [0m[0mshutting down sbt server[0m

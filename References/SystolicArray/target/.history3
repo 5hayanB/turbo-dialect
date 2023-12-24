@@ -1,0 +1,76 @@
+1703161700564:compile
+1703161902159:testOnly systolic.SystolicArraySpec
+1703162654718:testOnly systolic_arr.SystolicArraySpec
+1703162817615:sbt reload\nsbt clean\nsbt testOnly systolic_arr.SystolicArraySpec
+1703162820323:reload
+1703162824692:clean
+1703162860435:testOnly systolic_arr.SystolicArraySpec
+1703162934396:testOnly systolic_arr.SystolicArraySpec --DWriteVcd=1
+1703162941862:testOnly systolic_arr.SystolicArraySpec -- -DWriteVcd=1
+1703163094268:clean compile
+1703163100606:clean/compile
+1703163105323:clean /compile
+1703163108750:clean / compile
+1703163111205:clean
+1703163113402:clear
+1703163118378:compile
+1703163130741:testOnly systolic_arr.SystolicArraySpec -- -DWriteVcd=1
+1703230820700:dependencyTree
+1703230890240:testOnly SYSTOLICARRAY.SystolicArraySpec -- -DWriteVcd=1
+1703231027869:clean compile
+1703231031804:clean
+1703231034483:compile
+1703231050340:test
+1703231245400:testOnly SYSTOLICARRAY.SystolicArraySpec -- -DWriteVcd=1
+1703231256686:clean
+1703231259197:compile
+1703231268008:testOnly SYSTOLICARRAY.SystolicArraySpec -- -DWriteVcd=1
+1703231312940:test
+1703231493242:re-run -feature
+1703231500310:clean
+1703231503465:compile
+1703231506570:test
+1703231639391:-feature
+1703231642809:compile
+1703231644553:exit
+1703231985445:testOnly SYSTOLICARRAY.SystolicArraySpec -- -DWriteVcd=1
+1703231998236:clean
+1703232000712:compile
+1703232017691:testOnly SYSTOLICARRAY.SystolicArraySpec -- -DWriteVcd=1
+1703232026705:test
+1703232709167:testOnly SYSTOLICARRAY.SystolicArrayTester -- -DWriteVcd=1
+1703232908550:clean
+1703232911407:compile
+1703232915809:testOnly SYSTOLICARRAY.SystolicArrayTester -- -DWriteVcd=1
+1703232924443:exit
+1703232945580:testOnly SYSTOLICARRAY.SystolicArrayTester -- -DWriteVcd=1
+1703233075530:test
+1703233140254:update
+1703233143285:clean
+1703233145899:exit
+1703313811326:dependencyTree
+1703313874556:clean
+1703313877912:compile
+1703313926172:testOnly systolic_architecture.SystolicArrayTest -- -DWriteVcd=1
+1703313996548:exit
+1703314036789:testOnly systolic_architecture.SystolicArrayTest -- -DWriteVcd=1
+1703317026910:exit
+1703317123234:testOnly systolic_architecture.SystolicArrayTest -- -DWriteVcd=1
+1703317768071:testOnly systolic_architecture.SystolicArrayArchTest -- -DWriteVcd=1
+1703318800279:testOnly systolic_architecture.SystolicArrayArchTest -- -oD
+1703319928221:clear
+1703320038694:testOnly systolic_architecture.SystolicArrayArchTest -- -oD
+1703330932153:testOnly systolic_architecture.SystolicArrayArchTest -- -DWriteVcd=1
+1703400488548:testOnly simd.simd_arch_test -- -DWriteVcd=1
+1703400520008:exit
+1703401040954:testOnly simd.simd_arch_test -- -DWriteVcd=1
+1703401174848:exit
+1703401225967:testOnly simd.simd_arch_test -- -DWriteVcd=1
+1703401265863:testOnly simd.SIMDTest -- -DWriteVcd=1
+1703402084740:show chiselVersion
+1703402111001:testOnly simd.SIMDTest -- -DWriteVcd=1
+1703403421410:clean
+1703403427195:compile
+1703403443962:testOnly simd.SIMDTest -- -DWriteVcd=1
+1703403461138:exit
+1703403566087:testOnly simd.SIMDTest -- -DWriteVcd=1
