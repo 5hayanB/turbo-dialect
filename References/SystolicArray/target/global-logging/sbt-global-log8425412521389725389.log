@@ -1,0 +1,27 @@
+[0m[[0m[0mdebug[0m] [0m[0m> Exec(testOnly systolic_architecture.SystolicArrayArchTest -- -DWriteVcd=1, Some(ae5101e4-2ebc-4afd-af7f-ceeb6103e2bd), Some(CommandSource(console0)))[0m
+[0m[[0m[0mdebug[0m] [0m[0mEvaluating tasks: Test / testOnly[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
+[0m[[0m[0minfo[0m] [0m[0mcompiling 1 Scala source to /home/talha/Desktop/SystolicArray/target/scala-2.12/classes ...[0m
+[0m[[0m[33mwarn[0m] [0m[0m/home/talha/Desktop/SystolicArray/src/main/scala/systolic_architecture/SystolicArch.scala:47:31: The s-interpolator prints the Scala .toString of Data objects rather than the value of the hardware wire during simulation. Use the cf-interpolator instead. If you want an elaboration time print, use println.[0m
+[0m[[0m[33mwarn[0m] [0m[0m    row.foreach(elem => printf(s"${elem}, "))[0m
+[0m[[0m[33mwarn[0m] [0m[0m                              ^[0m
+[0m[[0m[33mwarn[0m] [0m[0m/home/talha/Desktop/SystolicArray/src/main/scala/systolic_architecture/SystolicArch.scala:52:31: The s-interpolator prints the Scala .toString of Data objects rather than the value of the hardware wire during simulation. Use the cf-interpolator instead. If you want an elaboration time print, use println.[0m
+[0m[[0m[33mwarn[0m] [0m[0m    row.foreach(elem => printf(s"${elem}, "))[0m
+[0m[[0m[33mwarn[0m] [0m[0m                              ^[0m
+[0m[[0m[33mwarn[0m] [0m[0m/home/talha/Desktop/SystolicArray/src/main/scala/systolic_architecture/SystolicArch.scala:57:29: The s-interpolator prints the Scala .toString of Data objects rather than the value of the hardware wire during simulation. Use the cf-interpolator instead. If you want an elaboration time print, use println.[0m
+[0m[[0m[33mwarn[0m] [0m[0m    row.foreach(pe => printf(s"${pe.io.in}, "))[0m
+[0m[[0m[33mwarn[0m] [0m[0m                            ^[0m
+[0m[[0m[33mwarn[0m] [0m[0m/home/talha/Desktop/SystolicArray/src/main/scala/systolic_architecture/SystolicArch.scala:62:29: The s-interpolator prints the Scala .toString of Data objects rather than the value of the hardware wire during simulation. Use the cf-interpolator instead. If you want an elaboration time print, use println.[0m
+[0m[[0m[33mwarn[0m] [0m[0m    row.foreach(pe => printf(s"${pe.io.out}, "))[0m
+[0m[[0m[33mwarn[0m] [0m[0m                            ^[0m
+[0m[[0m[33mwarn[0m] [0m[0mthere were 25 feature warnings; re-run with -feature for details[0m
+[0m[[0m[33mwarn[0m] [0m[0m5 warnings found[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mSystolicArrayArchTest:[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- SystolicArrayArch[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[36mRun completed in 3 seconds, 692 milliseconds.[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[36mTotal number of tests run: 1[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[36mSuites: completed 1, aborted 0[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[36mTests: succeeded 1, failed 0, canceled 0, ignored 0, pending 0[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mAll tests passed.[0m[0m
+[0m[[0m[32msuccess[0m] [0m[0mTotal time: 7 s, completed Dec 23, 2023, 4:31:15 PM[0m
+[0m[[0m[0mdebug[0m] [0m[0m> Exec(shell, None, None)[0m

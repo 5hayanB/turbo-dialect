@@ -1,0 +1,22 @@
+1703312101718:testOnly systolic_architecture.SystolicArrayTest -- -DWriteVcd=1
+1703312186750:testOnly systolic_architecture.SystolicArraySpec -- -DWriteVcd=1
+1703312196211:clean
+1703312199296:compile
+1703312204267:exit
+1703312504875:clean
+1703312507587:compile
+1703312611931:exit
+1703312627623:clean
+1703312635342:compile
+1703312647351:testOnly systolic_architecture.SystolicArrayTest -- -DWriteVcd=1
+1703312651181:exit
+1703312929349:sbt
+1703312934531:clean
+1703312937581:compile
+1703312983421:clean
+1703313207905:compile
+1703313220779:testOnly systolic_architecture.SystolicArrayTest -- -DWriteVcd=1
+1703313255313:testOnly systolic_architecture.SystolicArraySpec -- -DWriteVcd=1
+1703313258449:exit
+1703313747115:dependencyTree
+1703313763230:exit
