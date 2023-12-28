@@ -1,10 +1,11 @@
 from llama_cpp import Llama, LlamaGrammar
 
 
+# Load grammar file
 grammar_file = '/home/5hayanB/repositories/my_repositories/github/turbo-dialect/ast-gen/grammar/compressed_ast.gbnf'
-# grammar_file = '/home/5hayanB/repositories/other_repositories/github/llama.cpp/grammars/json.gbnf'
 grammar = LlamaGrammar.from_file(file=grammar_file)
 
+# Load model
 llm = Llama(model_path="/home/5hayanB/llms/codellama-13b.Q8_0/codellama-13b.Q8_0.gguf", n_ctx=2048)
 
 response = llm(
