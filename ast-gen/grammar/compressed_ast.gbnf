@@ -1,23 +1,23 @@
 root ::= component
 
 identifier ::= [a-zA-Z] [a-zA-Z0-9]*
-natural_num ::= [1-9] [0-9]*
-whole_num ::= 0 | natural_num
+naturalNum ::= [1-9] [0-9]*
+wholeNum ::= 0 | naturalNum
 
 name ::= "name:" identifier
-component_comb ::= "comb:" ("true" | "false")
-width ::= "width:" natural_num
-in_width ::= "inWidth:" natural_num
-out_width ::= "outWidth:" natural_num
+componentComb ::= "comb:" ("true" | "false")
+width ::= "width:" naturalNum
+inWidth ::= "inWidth:" naturalNum
+outWidth ::= "outWidth:" naturalNum
 dest ::= "dest:" identifier
 src ::= "src:" identifier
 guard ::= "grd:" identifier
 done ::= "done:"
-control_group ::= "grp:" identifier
+ctrlGrp ::= "grp:" identifier
 port ::= "port:" identifier
-comb_group ::= "combGrp:" identifier
-num ::= "num:" natural_num
-one_param_class ::= "class:" ("reg"
+combGrp ::= "combGrp:" identifier
+num ::= "num:" naturalNum
+oneParamClass ::= "class:" ("reg"
     | "const"
     | "lsh"
     | "rsh"
@@ -33,31 +33,31 @@ one_param_class ::= "class:" ("reg"
     | "neq"
     | "ge"
     | "le")
-two_param_class ::= "class:" ("slice" | "pad")
-params ::= width | in_width "," out_width
+twoParamClass ::= "class:" ("slice" | "pad")
+params ::= width | inWidth "," outWidth
 
-ports ::= "in" whole_num "->" natural_num "{" name "," width "}"
-port_list ::= ports+
-inputs ::= "inputs{" port_list "}"
-outputs ::= "outputs{" port_list "}"
+ports ::= "in" wholeNum "->" naturalNum "{" name "," width "}"
+portList ::= ports+
+inputs ::= "inputs{" portList "}"
+outputs ::= "outputs{" portList "}"
 
-primitive ::= (one_param_class "," params) | (two_param_class "," params "," params)
-cell ::= "cell" whole_num "->" natural_num "{" name "," primitive "}"
+primitive ::= (oneParamClass "," params) | (twoParamClass "," params "," params)
+cell ::= "cell" wholeNum "->" naturalNum "{" name "," primitive "}"
 cells ::= "cells{" cell+ "}"
 
-assignment ::= "assign" whole_num "->" natural_num "{" dest "," src "," guard "}"
-group ::= "grp" whole_num "->" natural_num "{" name "," assignment+ done "}"
-wire_child ::= assignment | group
-wire ::= (assignment | group) wire_child*
+assignment ::= "assign" wholeNum "->" naturalNum "{" dest "," src "," guard "}"
+group ::= "grp" wholeNum "->" naturalNum "{" name "," assignment+ done "}"
+wireChild ::= assignment | group
+wire ::= (assignment | group) wireChild*
 wires ::= "wires{" wire+ "}"
 
-control_child ::= seq | par | if | while | repeat
-seq ::= "seq" whole_num "->" natural_num "{" (control_group+ | (control_group ",")* control_child+) "}"
-par ::= "par" whole_num "->" natural_num "{" (control_group+ | (control_group ",")* control_child+) "}"
-if ::= "if" whole_num "->" natural_num "{" port "," comb_group "," (control_group+ | (control_group ",")* control_child+) "," else "}"
-else ::= "else" whole_num "->" natural_num "{" (control_group+ | (control_group ",")* control_child+) "}"
-while ::= "while" whole_num "->" natural_num "{" port "," comb_group "," (control_group+ | (control_group ",")* control_child+) "}"
-repeat ::= "repeat" whole_num "->" natural_num "{" num "," (control_group+ | (control_group ",")* control_child+) "}"
-control ::= "ctrl{" control_child+ "}"
+ctrlChild ::= seq | par | if | while | repeat
+seq ::= "seq" wholeNum "->" naturalNum "{" (ctrlGrp+ | (ctrlGrp ",")* ctrlChild+) "}"
+par ::= "par" wholeNum "->" naturalNum "{" (ctrlGrp+ | (ctrlGrp ",")* ctrlChild+) "}"
+if ::= "if" wholeNum "->" naturalNum "{" port "," combGrp "," (ctrlGrp+ | (ctrlGrp ",")* ctrlChild+) "," else "}"
+else ::= "else" wholeNum "->" naturalNum "{" (ctrlGrp+ | (ctrlGrp ",")* ctrlChild+) "}"
+while ::= "while" wholeNum "->" naturalNum "{" port "," combGrp "," (ctrlGrp+ | (ctrlGrp ",")* ctrlChild+) "}"
+repeat ::= "repeat" wholeNum "->" naturalNum "{" num "," (ctrlGrp+ | (ctrlGrp ",")* ctrlChild+) "}"
+control ::= "ctrl{" ctrlChild+ "}"
 
-component ::= "cmpnt{" name "," component_comb "," inputs outputs cells wires control
+component ::= "cmpnt{" name "," componentComb "," inputs outputs cells wires control "}"
