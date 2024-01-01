@@ -1,15 +1,21 @@
+import os
+
 from llama_cpp import Llama, LlamaGrammar
+from importlib import import_module
+
+ast_gen_scripts = import_module('ast-gen.scripts')
 
 
 # Load grammar file
-grammar_file = '/home/5hayanB/repositories/my_repositories/github/turbo-dialect/ast-gen/grammar/compressed_ast.gbnf'
+grammar_file = 'ast-gen/grammar/compressed_ast.gbnf'
 grammar = LlamaGrammar.from_file(file=grammar_file)
 
 # Load model
-llm = Llama(model_path="/home/5hayanB/llms/codellama-13b.Q8_0/codellama-13b.Q8_0.gguf", n_ctx=2048)
+llm = Llama(model_path="llms/codellama-13b.Q8_0/codellama-13b.Q8_0.gguf", n_ctx=2048)
 
+# Hardcoded prompt
 response = llm(
-    """A Decoder module decodes an instruction into several components.
+    """A Decoder module decodes an instruction into one components.
 
 There is one 32-bit instruction input port and 16 output ports which consists of 10 7-bit ports (opcode, funct7, R-Type, I-Type arithmetic, I-Type load, I-Type jalr, S-Type, B-Type, U-Type auipc, U-Type lui and J-Type IDs), 3 5-bit ports (rd, rs1 and rs2 addresses), a 3-bit funct3, and a 32-bit immediate.
 
@@ -22,6 +28,12 @@ Immediate is one of 5 values. One value is bits 31 to 20 of the instruction only
     echo=True
 )
 
+# Dump formatted compressed AST
+ast_gen_scripts.dump_compressed_ast(response, os.path.join(
+    os.path.dirname(
+        os.path.abspath(__file__)
+    ),                 
+))
 print(response)
 
 # output = llm(
