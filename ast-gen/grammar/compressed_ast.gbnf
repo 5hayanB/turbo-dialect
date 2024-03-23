@@ -36,10 +36,11 @@ oneParamClass ::= "class:" ("reg"
 twoParamClass ::= "class:" ("slice" | "pad")
 params ::= width | inWidth "," outWidth
 
-ports ::= "in" wholeNum "->" naturalNum "{" name "," width "}"
-portList ::= ports+
-inputs ::= "inputs{" portList "}"
-outputs ::= "outputs{" portList "}"
+ports ::= wholeNum "->" naturalNum "{" name "," width "}"
+inputPorts ::= ("in" ports)+
+outputPorts ::= ("out" ports)+
+inputs ::= "inputs{" inputPorts "}"
+outputs ::= "outputs{" outputPorts "}"
 
 primitive ::= (oneParamClass "," params) | (twoParamClass "," params "," params)
 cell ::= "cell" wholeNum "->" naturalNum "{" name "," primitive "}"
@@ -58,6 +59,7 @@ if ::= "if" wholeNum "->" naturalNum "{" port "," combGrp "," (ctrlGrp+ | (ctrlG
 else ::= "else" wholeNum "->" naturalNum "{" (ctrlGrp+ | (ctrlGrp ",")* ctrlChild+) "}"
 while ::= "while" wholeNum "->" naturalNum "{" port "," combGrp "," (ctrlGrp+ | (ctrlGrp ",")* ctrlChild+) "}"
 repeat ::= "repeat" wholeNum "->" naturalNum "{" num "," (ctrlGrp+ | (ctrlGrp ",")* ctrlChild+) "}"
-control ::= "ctrl{" ctrlChild+ "}"
+control ::= "ctrl{" ctrlChild* "}"
 
 component ::= "cmpnt{" name "," componentComb "," inputs outputs cells wires control "}"
+

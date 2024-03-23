@@ -1,49 +1,76 @@
-component:
-  name 'name'
-  type 'type'
-  inputs:
-    in1 -> n:
-      name 'name'
-      width 1
-  outputs:
-    out1 -> n:
-      name 'name'
-      width 1
-  cells:
-    cell1 -> n:
-      name 'name'
-      class 'register'
-      params 'param1=value,param2=value'
-      type 'type'
-  wires:
-    assign1 -> n:
-      dest 'name'
-      src 'name'
-      guard 'name'
-    group1 -> n:
-      name 'name'
-      type 'type'
-      assign2 -> n:
-        dest 'name'
-        src 'name'
-        guard 'name'
-      assign3 -> n:
-        dest 'name'
-        src 'name'
-      done 'done_cond'
-  control:
-    seq1 -> n:
-      group 'name'
-    par1 -> n:
-      group 'name'
-    if1 -> n:
-      port 'name'
-      comb_group 'name'
-      group 'name'
-      else 'name'
-    while1 -> n:
-      port 'name'
-      comb_group 'name'
-      group 'name'
-    repeat1 -> n:
-      group 'name'
+cmpnt{
+    name:name,
+    comb:false,
+    inputs{
+        in0->n{
+            name:name,
+            width:1
+        }
+        in1->n{
+            name:name,
+            width:1
+        }
+    }
+    outputs{
+        out0->n{
+            name:name,
+            width:1
+        }
+        out1->n{
+            name:name,
+            width:1
+        }
+    }
+    cells{
+        cell0->n{
+            name:name,
+            class:register,
+            param1:value,
+            param2:value
+        }
+    }
+    wires{
+        assign0->n{
+            dest:name,
+            src:name,
+            grd:name
+        }
+        grp0->n{
+            name:name,
+            assign1->n{
+                dest:name,
+                src:name,
+                grd:name
+            }
+            assign2->n{
+                dest:name,
+                src:name
+            }
+            done:doneCond
+        }
+    }
+    ctrl{
+        seq0->n{
+            grp:name
+        }
+        par0->n{
+            grp:name
+        }
+        if0->n{
+            port:name,
+            combGrp:name,
+            grp:name,
+            else:name
+        }
+        while0->n{
+            port:name,
+            combGrp:name,
+            grp:name
+        }
+        repeat0->n{
+            num:1,
+            grp:name
+        }
+    }
+}
+

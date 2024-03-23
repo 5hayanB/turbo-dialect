@@ -1,49 +1,203 @@
-component:
-    name 'name'
-    type 'type'
-    inputs:
-        in1:
-            name 'name'
-            width 1
-    outputs:
-        out1:
-            name 'name'
-            width 1
-    cells:
-        cell1:
-            name 'name'
-            class 'register'
-            params 'param1=value,param2=value'
-            type 'type'
-    wires:
-        assign1:
-            dest 'name'
-            src 'name'
-            guard 'name'
-        group1:
-            name 'name'
-            type 'type'
-            assign2:
-                dest 'name'
-                src 'name'
-                guard 'name'
-            assign3:
-                dest 'name'
-                src 'name'
-            done 'done_cond'
-    control:
-        seq1:
-            group 'name'
-        par1:
-            group 'name'
-        if1:
-            port 'name'
-            comb_group 'name'
-            group 'name'
-            else 'name'
-        while1:
-            port 'name'
-            comb_group 'name'
-            group 'name'
-        repeat1:
-            group 'name'
+cmpnt{
+    name:name,
+    comb:false,
+    inputs{
+        in0_1{
+            name:name,
+            width:1
+        }
+        in0_2{
+            name:name,
+            width:1
+        }
+        ...
+        in0_n{
+            name:name,
+            width:1
+        }
+        in1_1{
+            name:name,
+            width:1
+        }
+        in1_2{
+            name:name,
+            width:1
+        }
+        ...
+        in1_n{
+            name:name,
+            width:1
+        }
+    }
+    outputs{
+        out0_1{
+            name:name,
+            width:1
+        }
+        out0_2{
+            name:name,
+            width:1
+        }
+        ...
+        out0_n{
+            name:name,
+            width:1
+        }
+        out1_1{
+            name:name,
+            width:1
+        }
+        out1_2{
+            name:name,
+            width:1
+        }
+        ...
+        out1_n{
+            name:name,
+            width:1
+        }
+    }
+    cells{
+        cell0_1{
+            name:name,
+            class:register,
+            param1:value,
+            param2:value
+        }
+        cell0_2{
+            name:name,
+            class:register,
+            param1:value,
+            param2:value
+        }
+        ...
+        cell0_n{
+            name:name,
+            class:register,
+            param1:value,
+            param2:value
+        }
+    }
+    wires{
+        assign0_1{
+            dest:name,
+            src:name,
+            grd:name
+        }
+        assign0_2{
+            dest:name,
+            src:name,
+            grd:name
+        }
+        ...
+        assign0_n{
+            dest:name,
+            src:name,
+            grd:name
+        }
+        grp0->n{
+            name:name,
+            assign1_1{
+                dest:name,
+                src:name,
+                grd:name
+            }
+            assign1_2{
+                dest:name,
+                src:name,
+                grd:name
+            }
+            ...
+            assign1_n{
+                dest:name,
+                src:name,
+                grd:name
+            }
+            assign2_1{
+                dest:name,
+                src:name
+            }
+            assign2_2{
+                dest:name,
+                src:name
+            }
+            ...
+            assign2_n{
+                dest:name,
+                src:name
+            }
+            done:doneCond
+        }
+    }
+    ctrl{
+        seq0_1{
+            grp:name
+        }
+        seq0_2{
+            grp:name
+        }
+        ...
+        seq0_n{
+            grp:name
+        }
+        par0_1{
+            grp:name
+        }
+        par0_2{
+            grp:name
+        }
+        ...
+        par0_n{
+            grp:name
+        }
+        if0_1{
+            port:name,
+            combGrp:name,
+            grp:name,
+            else:name
+        }
+        if0_2{
+            port:name,
+            combGrp:name,
+            grp:name,
+            else:name
+        }
+        ...
+        if0_n{
+            port:name,
+            combGrp:name,
+            grp:name,
+            else:name
+        }
+        while0_1{
+            port:name,
+            combGrp:name,
+            grp:name
+        }
+        while0_2{
+            port:name,
+            combGrp:name,
+            grp:name
+        }
+        ...
+        while0_n{
+            port:name,
+            combGrp:name,
+            grp:name
+        }
+        repeat0_1{
+            num:1,
+            grp:name
+        }
+        repeat0_2{
+            num:1,
+            grp:name
+        }
+        ...
+        repeat0_n{
+            num:1,
+            grp:name
+        }
+    }
+}
+
