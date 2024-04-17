@@ -19,14 +19,13 @@ LLM = Llama(model_path=MODEL['path'], n_ctx=MODEL['n_ctx'], n_gpu_layers=-1, cha
 
 
 def get_ast(prompt, template_file, description_file, grammar_file):
-    grammar = LlamaGrammar.from_file(file=grammar_file)
-
     with open(template_file, 'r', encoding='utf-8') as f:
         template = f.read()
     with open(description_file, 'r', encoding='utf-8') as f:
         description = f.read()
     sys_prompt = f'{ROLE}{template}{description}'
 
+    grammar = LlamaGrammar.from_file(file=grammar_file)
     # response = LLM.create_completion(
     #     SYSTEM_PROMPT + prompt,
     #     grammar=GRAMMAR,
@@ -46,19 +45,10 @@ def get_ast(prompt, template_file, description_file, grammar_file):
     return response['choices'][0]['message']['content']
 
 
-def top_module(prompt):
-    ast = get_ast(prompt, 'ast_gen/prompts/top_module_ast_template.txt', 'ast_gen/prompts/top_module_ast_description.txt', 'ast_gen/grammar/top_module_ast.gbnf')
-    return ast
-
-
-def io(prompt):
-    ast = get_ast(prompt, 'ast_gen/prompts/io_ast_template.txt', 'ast_gen/prompts/io_ast_description.txt', 'ast_gen/grammar/io_ast.gbnf')
-    return ast
-
-    
 def create_parse_tree(prompt):
-    top_module_ast = top_module(prompt)
-    io_ast = io(prompt)
+    top_module_ast = get_ast(prompt, 'ast_gen/prompts/top_module_ast_template.txt', 'ast_gen/prompts/top_module_ast_description.txt', 'ast_gen/grammar/top_module_ast.gbnf')
     print(f'{top_module_ast = }')
+
+    io_ast = get_ast(prompt, 'ast_gen/prompts/io_ast_template.txt', 'ast_gen/prompts/io_ast_description.txt', 'ast_gen/grammar/io_ast.gbnf')
     print(f'{io_ast = }')
 

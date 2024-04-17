@@ -1,4 +1,6 @@
 The "inputs" node contains input port nodes.
 The "outputs" node contains output port nodes.
+Each port node starts with the name of the port followed by an arrow along with the number of identical ports.
 Each port node has a leaf node "width" which tells the bit-width of the input and output ports.
+For example, left->4{width:4} means that there are four ports named "left" and all of them are 4-bits wide.
 
