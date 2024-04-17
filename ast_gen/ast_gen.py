@@ -32,18 +32,15 @@ def get_ast(prompt, grammar_file, role_file, template_file, description_file):
     #     stop=['\n']
     # )
     # ast = response['choices'][0]['text']
-    while True:
-        response = LLM.create_chat_completion(
-            messages=[
-                {'role': 'system', 'content': sys_prompt},
-                {'role': 'user', 'content': prompt}
-            ],
-            grammar=grammar,
-            max_tokens=None,
-            stop=['\n']
-        )
-        if response['choices'][0]['finish_reason'] == 'stop':
-            break
+    response = LLM.create_chat_completion(
+        messages=[
+            {'role': 'system', 'content': sys_prompt},
+            {'role': 'user', 'content': prompt}
+        ],
+        grammar=grammar,
+        max_tokens=None,
+        stop=['\n']
+    )
     # print(f'{response = }')
     return response['choices'][0]['message']['content']
 
