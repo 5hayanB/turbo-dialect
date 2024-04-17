@@ -1,0 +1,5 @@
+The root node will always be "cmpnt" and it will represent the top module of the circuit.
+"cmpnt" has two leaf nodes:
+- "name" holds the name of the circuit.
+- "comb" holds the value "true" if the circuit is combinational, otherwise "false".
+

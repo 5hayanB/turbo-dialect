@@ -1,0 +1,54 @@
+root ::= component "\n"
+
+identifier ::= [a-zA-Z] [a-zA-Z0-9]*
+naturalNum ::= [1-9] [0-9]*
+wholeNum ::= [0] | naturalNum
+int ::= ("-" naturalNum) | wholeNum
+
+name ::= "name:" identifier
+componentComb ::= "comb:" ("true" | "false")
+width ::= "width:" naturalNum
+val ::= "val:" int
+inWidth ::= "inWidth:" naturalNum
+outWidth ::= "outWidth:" naturalNum
+dest ::= "dest:" identifier
+src ::= "src:" identifier
+guard ::= "grd:" identifier
+done ::= "done:"
+ctrlGrp ::= "grp:" identifier
+port ::= "port:" identifier
+combGrp ::= "combGrp:" identifier
+num ::= "num:" naturalNum
+class ::= "class:"
+widthClass ::= class ("reg" | "lsh" | "rsh" | "add" | "sub" | "not" | "and" | "or" | "xor" | "gt" | "lt" | "eq" | "neq" | "ge" | "le")
+constClass ::= class "const"
+constParams ::= width "," val
+widthCtrlClass ::= class ("slice" | "pad")
+widthCtrlParams ::= inWidth "," outWidth
+
+ports ::= wholeNum "->" naturalNum "{" name "," width "}"
+inputPorts ::= ("in" ports)+
+outputPorts ::= ("out" ports)+
+inputs ::= "inputs{" inputPorts "}"
+outputs ::= "outputs{" outputPorts "}"
+
+primitive ::= (widthClass "," width) | (constClass "," constParams) | (widthCtrlClass "," widthCtrlParams)
+cell ::= "cell" wholeNum "->" naturalNum "{" name "," primitive "}"
+cells ::= "cells{" cell+ "}"
+
+assignment ::= "assign" wholeNum "->" naturalNum "{" dest "," src "," guard "}"
+group ::= "grp" wholeNum "->" naturalNum "{" name "," assignment+ done "}"
+wire ::= assignment | group
+wires ::= "wires{" wire+ "}"
+
+ctrlChild ::= seq | par | if | while | repeat
+seq ::= "seq" wholeNum "->" naturalNum "{" (ctrlGrp+ | (ctrlGrp ",")* ctrlChild+) "}"
+par ::= "par" wholeNum "->" naturalNum "{" (ctrlGrp+ | (ctrlGrp ",")* ctrlChild+) "}"
+if ::= "if" wholeNum "->" naturalNum "{" port "," combGrp "," (ctrlGrp+ | (ctrlGrp ",")* ctrlChild+) "," else "}"
+else ::= "else" wholeNum "->" naturalNum "{" (ctrlGrp+ | (ctrlGrp ",")* ctrlChild+) "}"
+while ::= "while" wholeNum "->" naturalNum "{" port "," combGrp "," (ctrlGrp+ | (ctrlGrp ",")* ctrlChild+) "}"
+repeat ::= "repeat" wholeNum "->" naturalNum "{" num "," (ctrlGrp+ | (ctrlGrp ",")* ctrlChild+) "}"
+control ::= "ctrl{" ctrlChild* "}"
+
+component ::= "cmpnt{" name "," componentComb "," inputs outputs cells wires control "}"
+

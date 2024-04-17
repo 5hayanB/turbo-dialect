@@ -1,0 +1,15 @@
+root ::= inputs outputs "\n"
+
+identifier ::= [a-zA-Z] [a-zA-Z0-9]*
+naturalNum ::= [1-9] [0-9]*
+wholeNum ::= [0] | naturalNum
+
+name ::= "name:" identifier
+width ::= "width:" naturalNum
+
+ports ::= wholeNum "->" naturalNum "{" name "," width "}"
+inputPorts ::= ("in" ports)+
+outputPorts ::= ("out" ports)+
+inputs ::= "inputs{" inputPorts "}"
+outputs ::= "outputs{" outputPorts "}"
+

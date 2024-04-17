@@ -1,0 +1,5 @@
+cmpnt{
+    name:name,
+    comb:false
+}
+

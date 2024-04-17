@@ -1,0 +1,5 @@
+The "inputs" node contains input port nodes, incrementally named "in0, in1, in2, ...".
+The "outputs" node contains output port nodes, incrementally named "out0, out1, out2, ...".
+Each port node has two leaf nodes:
+- "width" tells the bit width of the input and output ports.
+- "name" holds the name of the port.

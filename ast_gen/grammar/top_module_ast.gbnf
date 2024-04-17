@@ -1,0 +1,9 @@
+root ::= component "\n"
+
+identifier ::= [a-zA-Z] [a-zA-Z0-9]*
+
+name ::= "name:" identifier
+comb ::= "comb:" ("true" | "false")
+
+component ::= "cmpnt{" name "," comb "}"
+

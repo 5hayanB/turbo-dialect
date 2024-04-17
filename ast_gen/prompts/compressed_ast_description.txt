@@ -1,0 +1,73 @@
+The root node will always be "cmpnt" and it will represent the top module of the circuit.
+"cmpnt" has two leaf nodes:
+- "name" holds the name of the circuit.
+- "comb" holds the value "true" if the circuit is combinational, otherwise "false".
+The "inputs" node contains input port nodes, incrementally named "in0, in1, in2, ...".
+The "outputs" node contains output port nodes, incrementally named "out0, out1, out2, ...".
+Each port node has two leaf nodes:
+- "width" tells the bit width of the input and output ports.
+- "name" holds the name of the port.
+The "cells" node contains declaration of subcomponents of the circuit, incrementally named "cell0, cell1, cell2, ...".
+Each cell node has the following leaf nodes:
+- "name" holds the name of the cell.
+- "class" holds the type of cell.
+- Depending on the class, there may be one or two parameter nodes.
+Following are the values of the "class" nodes with their respective parameter nodes. The description of each class in parenthesis.
+- class:reg (register)
+  width:register_width
+- class:lsh (left shift logical)
+  width:shifter_width
+- class:rsh (right shift logical)
+  width:shifter_width
+- class:add (adder)
+  width:adder_width
+- class:sub (subtractor)
+  width:subtractor_width
+- class:not (inverter)
+  width:inverter_width
+- class:and (and gate)
+  width:and_gate_width
+- class:or (or gate)
+  width:or_gate_width
+- class:xor (xor gate)
+  width:xor_gate_width
+- class:gt (greater than comparator)
+  width:comparator_width
+- class:lt (less than comparator)
+  width:comparator_width
+- class:eq (equality comparator)
+  width:comparator_width
+- class:neq (not equal comparator)
+  width:comparator_width
+- class:ge (greater than or equal comparator)
+  width:comparator_width
+- class:le (less than or equal comparator)
+  width:comparator_width
+- class:const (constant)
+  width:constant_bit_width
+  val:constant_value
+- class:slice (slice out lower outWidth-bits of an inWidth-bit value)
+  inWidth:input_width
+  outWidth:output_width
+- class:pad (zero pad from the left of an inWidth-bit input to an output of outWidth-bits)
+  inWidth:input_width
+  outWidth:output_width
+The "wires" node contains assignments and group of assignments, incrementally named "assign0, assign1, assign2, ..." and "grp0, grp1, grp2, ..." respectively.
+
+
+*** OLD ***
+The "dest" nodes are the destination end point of the assignment connection.
+The "src" nodes are the source end point of the assignment connection.
+The "guard" nodes are logical expressions that produce 1-bit values and allows further propagation of "src" nodes. These are optional and can be left as an empty string if no guard is needed.
+The "type" leaf node of the "group1, group2, group3, ..." nodes represent that either the group is combinational or non-combinational.
+The "done" nodes tell when the execution of a "group" is complete.
+The "control" nodes tells the circuit layout.
+The incrementally named "seq1, seq2, seq3, ..." nodes express sequential execution of groups.
+The incrementally named "par1, par2, par3, ..." nodes express parallel execution of groups.
+The incrementally named "if1, if2, if3, ..." nodes express conditional execution of groups.
+The "port" node is the 1 bit port of a cell that will run the group in the "group" leaf node of "if1, if2, if3, ...".
+The "comb_group" node is the group with the combinational type that computes the value of the "port" node.
+The "else" node executes the groups if the "port" condition is false.
+The incrementally named "repeat1, repeat2, repeat3, ..." nodes repeatedly execute the groups for num number of times.
+The "num" node tells the number of times the groups have to be repeatedly executed.
+The "group" nodes are the same values as the "name" nodes of the "group1, group2, group3, ..." nodes. There can be multiple non-repeating "group" nodes.
