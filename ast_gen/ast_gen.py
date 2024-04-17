@@ -31,6 +31,7 @@ def get_ast(prompt, grammar_file, role_file, template_file, description_file):
     #     max_tokens=None,
     #     stop=['\n']
     # )
+    # ast = response['choices'][0]['text']
     response = LLM.create_chat_completion(
         messages=[
             {'role': 'system', 'content': sys_prompt},
@@ -40,7 +41,7 @@ def get_ast(prompt, grammar_file, role_file, template_file, description_file):
         max_tokens=None,
         stop=['\n']
     )
-    # ast = response['choices'][0]['text']
+    print(f'{response = }')
     return response['choices'][0]['message']['content']
 
 
