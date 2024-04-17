@@ -55,9 +55,9 @@ def create_parse_tree(prompt):
     io_ast = get_ast(
         prompt,
         grammar_file='ast_gen/grammar/io_ast.gbnf',
-        role_file='./',
-        template_file='./prompts/io_ast_template.txt',
-        description_file='./prompts/io_ast_description.txt'
+        role_file='ast_gen/prompts/io_role.txt',
+        template_file='ast_gen/prompts/io_ast_template.txt',
+        description_file='ast_gen/prompts/io_ast_description.txt'
     )
     print(f'{top_module_ast = }')
     print(f'{io_ast = }')
