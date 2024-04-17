@@ -57,5 +57,8 @@ def io(prompt):
 
     
 def create_parse_tree(prompt):
-    top_module(prompt)
+    top_module_ast = top_module(prompt)
+    io_ast = io(prompt)
+    print(f'{top_module_ast = }')
+    print(f'{io_ast = }')
 

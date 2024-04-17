@@ -1,20 +1,16 @@
 inputs{
-    in0->n{
-        name:name,
+    name->n{
         width:1
     }
-    in1->n{
-        name:name,
+    name->n{
         width:1
     }
 }
 outputs{
-    out0->n{
-        name:name,
+    name->n{
         width:1
     }
-    out1->n{
-        name:name,
+    name->n{
         width:1
     }
 }
