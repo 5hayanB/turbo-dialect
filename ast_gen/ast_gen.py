@@ -3,15 +3,9 @@ from llama_cpp import Llama, LlamaGrammar
 from models import MODELS
 
 
-# load grammar
-GRAMMAR_FILE = 'ast_gen/grammar/compressed_ast.gbnf'
-GRAMMAR = LlamaGrammar.from_file(file=GRAMMAR_FILE)
-
 # load model
-# MODEL = MODELS['mistral-7b-v0.1.Q8']
-# LLM = Llama(model_path=MODEL['path'], n_ctx=MODEL['n_ctx'], n_gpu_layers=-1)
-MODEL = MODELS['openhermes-2.5-mistral-7b-16k.Q8']
-LLM = Llama(model_path=MODEL['path'], n_ctx=MODEL['n_ctx'], n_gpu_layers=-1, chat_format='chatml')
+MODEL = MODELS['codellama-13b-instruct']
+LLM = Llama(model_path=MODEL['path'], n_ctx=MODEL['n_ctx'], n_gpu_layers=33, chat_format='chatml')
 
 
 def get_ast(prompt, grammar_file, role_file, template_file, description_file):
@@ -25,13 +19,6 @@ def get_ast(prompt, grammar_file, role_file, template_file, description_file):
         description = f.read()
     sys_prompt = f'{role}{template}{description}'
 
-    # response = LLM.create_completion(
-    #     SYSTEM_PROMPT + prompt,
-    #     grammar=GRAMMAR,
-    #     max_tokens=None,
-    #     stop=['\n']
-    # )
-    # ast = response['choices'][0]['text']
     while True:
         response = LLM.create_chat_completion(
             messages=[
@@ -44,7 +31,6 @@ def get_ast(prompt, grammar_file, role_file, template_file, description_file):
         )
         if response['choices'][0]['finish_reason'] == 'stop':
             break
-    # print(f'{response = }')
     return response['choices'][0]['message']['content']
 
 
