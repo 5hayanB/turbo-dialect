@@ -4,7 +4,7 @@ from models import MODELS
 
 
 # load model
-MODEL = MODELS['codellama-13b-instruct']
+MODEL = MODELS['openhermes-2.5-mistral-7b-16k']
 LLM = Llama(model_path=MODEL['path'], n_ctx=MODEL['n_ctx'], n_gpu_layers=33, chat_format='chatml')
 
 
