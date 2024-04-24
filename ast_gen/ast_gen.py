@@ -4,8 +4,8 @@ from models import MODELS
 
 
 # load model
-MODEL = MODELS['openhermes-2.5-mistral-7b-16k']
-LLM = Llama(model_path=MODEL['path'], n_ctx=MODEL['n_ctx'], n_gpu_layers=33, chat_format='chatml')
+MODEL = MODELS['mistral-7b-instruct-v0.1']
+LLM = Llama(model_path=MODEL['path'], n_ctx=MODEL['n_ctx'], n_gpu_layers=33, chat_format=MODEL['template'])
 
 
 def get_ast(prompt, grammar_file, role_file, template_file, description_file):
