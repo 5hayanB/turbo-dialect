@@ -54,6 +54,14 @@ def create_parse_tree(prompt):
         template_file='ast_gen/prompts/io_ast_template.txt',
         description_file='ast_gen/prompts/io_ast_description.txt'
     )
+    wire_ast = get_ast(
+        prompt,
+        grammar_file='ast_gen/grammar/cells_ast.gbnf',
+        role_file='ast_gen/prompts/cells_role.txt',
+        template_file='ast_gen/prompts/cells_ast_template.txt',
+        description_file='ast_gen/prompts/cells_ast_description.txt'
+    )
     print(f'{top_module_ast = }')
     print(f'{io_ast = }')
+    print(f'{wire_ast = }')
 

@@ -1,5 +1,5 @@
 Following is the template for the abstract syntax tree.
 ```
-cmpnt{name:name,comb:false}
+cells{name->n{class:register,param1:value}}
 ```
 

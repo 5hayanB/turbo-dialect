@@ -1,8 +1,12 @@
 cells{
     name->n{
         class:register,
-        param1:value,
-        param2:value
+        width:value,
+    }
+    name->n{
+        class:const,
+        width:value,
+        val:value
     }
 }
 
