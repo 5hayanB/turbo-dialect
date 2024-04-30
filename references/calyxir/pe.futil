@@ -1,4 +1,5 @@
 import "primitives/core.futil";
+import "primitives/binary_operators.futil";
 
 component pe(left:4, top:4)->(right:4, bottom:4,acc_out:4){
     cells{
