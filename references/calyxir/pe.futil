@@ -1,0 +1,27 @@
+component pe(left:4, top:4)->(right:4, bottom:4,acc_out:4){
+    cells{
+        acc = std_reg(4);
+        adder = std_add(4);
+        multiplier = std_mult_pipe(4);
+        acc_en = std_const(1,1);
+    }
+    wires{
+        group ACC{
+            multiplier.left = left;
+            multiplier.right = right;
+            adder.left = multiplier.out;
+            adder.right = acc.out;
+            right = left;
+            bottom = top;
+            acc_out = acc.out;
+            acc.write_en = acc_en.out;
+            ACC[done]= acc.done;
+        }
+        
+    }
+    control{
+        seq{
+            ACC;
+        }
+    }
+}
