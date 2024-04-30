@@ -1,5 +1,5 @@
 Following is the template for the abstract syntax tree.
 ```
-cells{name->n{class:register,param1:value}}
+cells{name->n{class:register,width:value}name->n{class:const,width:value,val:value}...}
 ```
 
