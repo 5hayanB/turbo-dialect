@@ -18,7 +18,9 @@ component main(left:4, top:4)->(right:4, bottom:4,acc_out:4){
             bottom = top;
             acc_out = acc.out;
             acc.write_en = 1'd1;
+            acc.in = adder.out;
             pe[done]= acc.done;
+
         }
         
     }
