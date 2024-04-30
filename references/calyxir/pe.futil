@@ -11,7 +11,7 @@ component pe(left:4, top:4)->(right:4, bottom:4,acc_out:4){
     wires{
         group ACC{
             multiplier.left = left;
-            multiplier.right = right;
+            multiplier.right = top;
             adder.left = multiplier.out;
             adder.right = acc.out;
             right = left;
