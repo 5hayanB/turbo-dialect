@@ -1,0 +1,5 @@
+Following is the template for the abstract syntax tree.
+```
+cmpnt{name:name,comb:false}
+```
+

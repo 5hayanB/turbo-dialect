@@ -1,0 +1,8 @@
+cells{
+    name->n{
+        class:register,
+        param1:value,
+        param2:value
+    }
+}
+

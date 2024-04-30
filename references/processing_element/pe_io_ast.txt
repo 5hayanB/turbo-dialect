@@ -1,0 +1,11 @@
+inputs{
+    in->2{
+        width:4
+    }
+}
+outputs{
+    out->3{
+        width:4
+    }
+}
+

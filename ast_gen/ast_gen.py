@@ -4,8 +4,13 @@ from models import MODELS
 
 
 # load model
-MODEL = MODELS['mistral-7b-instruct-v0.1']
-LLM = Llama(model_path=MODEL['path'], n_ctx=MODEL['n_ctx'], n_gpu_layers=33, chat_format=MODEL['template'])
+MODEL = MODELS['meta-llama-3-8b-instruct']
+LLM = Llama(
+    model_path=MODEL['path'],
+    n_ctx=MODEL['n_ctx'],
+    n_gpu_layers=33,
+    chat_format=MODEL['template']
+)
 
 
 def get_ast(prompt, grammar_file, role_file, template_file, description_file):

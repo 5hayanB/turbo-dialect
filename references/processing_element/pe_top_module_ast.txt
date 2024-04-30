@@ -1,0 +1,5 @@
+cmpnt{
+    name:pe,
+    comb:false
+}
+

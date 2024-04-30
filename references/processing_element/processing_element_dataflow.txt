@@ -1,0 +1,2 @@
+Two 4-bit input data (one from the top and the other from the left) are multiplied together and added with the value of an accumulator register. The added value is then stored in the accumulator register. After the addition operation, the input data are sent to the output (one for the top input and the other for the left input). The value stored in the accumulator register is sent to another output of 4-bits.
+
