@@ -1,0 +1,58 @@
+import "primitives/core.futil";
+import "primitives/binary_operators.futil";
+
+
+component main(left:4, top:4) -> (right:4, bottom:4, acc_out:32) {
+    cells {
+        multiplier = std_mult_pipe(32);
+        adder = std_add(32);
+        acc = std_reg(32);
+    }
+    wires {
+        group PE {
+            multiplier.left = 32'd0; // Initialize with 0
+            multiplier.right = 32'd0; // Initialize with 0
+            multiplier.go = 1'd1;
+            adder.left = multiplier.done ? multiplier.out;
+            adder.right = acc.out;
+            right = 4'd0; // Initialize with 0
+            bottom = 4'd0; // Initialize with 0
+            acc_out = acc.out;
+            acc.write_en = 1'd1;
+            acc.in = adder.out;
+            PE[done] = acc.done;
+        }
+    }
+    control {
+        PE;
+    }
+}
+
+component sysarr(left:4, top:4) -> (right:4, bottom:4, acc_out:32) {
+    cells {
+        pe1 = main(); 
+        pe2 = main();
+        pe3 = main();
+        pe4 = main();
+    }
+    wires {
+        group systolic_array {
+            pe1.left = left;
+            pe1.top = top;
+            pe2.left = pe1.right;
+            pe2.top = pe1.bottom;
+            pe3.left = pe1.right;
+            pe3.top = pe2.bottom;
+            pe4.left = pe2.right;
+            pe4.top = pe3.bottom;
+            right = pe4.right;
+            bottom = pe4.bottom;
+            acc_out = pe4.acc_out;
+            systolic_array[done]=pe4.done;
+
+        }
+    }
+    control {
+        systolic_array;
+    }
+}

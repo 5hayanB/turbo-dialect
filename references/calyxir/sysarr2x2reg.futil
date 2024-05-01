@@ -1,0 +1,70 @@
+import "primitives/core.futil";
+import "primitives/binary_operators.futil";
+
+
+component main(left:4, top:4) -> (right:4, bottom:4, acc_out:32) {
+    cells {
+        multiplier = std_mult_pipe(32);
+        adder = std_add(32);
+        acc = std_reg(32);
+    }
+    wires {
+        group PE {
+            multiplier.left = 32'd0; // Initialize with 0
+            multiplier.right = 32'd0; // Initialize with 0
+            multiplier.go = 1'd1;
+            adder.left = multiplier.done ? multiplier.out;
+            adder.right = acc.out;
+            right = 4'd0; // Initialize with 0
+            bottom = 4'd0; // Initialize with 0
+            acc_out = acc.out;
+            acc.write_en = 1'd1;
+            acc.in = adder.out;
+            PE[done] = acc.done;
+        }
+    }
+    control {
+        PE;
+    }
+}
+
+
+component sysarr(left:4, top:4) -> (right:4, bottom:4, acc_out:32) {
+    cells {
+        pe1 = main(); 
+        pe2 = main();
+        pe3 = main();
+        pe4 = main();
+        reg_left1 = std_reg(4);
+        reg_left2 = std_reg(4);
+        reg_top1 = std_reg(4);
+        reg_top2 = std_reg(4);
+    }
+    wires {
+        group systolic_array {
+            reg_left1.in = left;
+            reg_left1.write_en = 1'd1;
+            reg_left2.in = reg_left1.out;
+            reg_left2.write_en = 1'd1;
+            reg_top1.in = top;
+            reg_top1.write_en = 1'd1;
+            reg_top2.in = reg_top1.out;
+            reg_top2.write_en = 1'd1;
+            pe1.left = reg_left1.out;
+            pe1.top = reg_top1.out;
+            pe2.left = reg_left2.out;
+            pe2.top = pe1.bottom;
+            pe3.left = reg_left1.out;
+            pe3.top = pe2.bottom;
+            pe4.left = reg_left2.out;
+            pe4.top = pe3.bottom;
+            right = pe4.right;
+            bottom = pe4.bottom;
+            acc_out = pe4.acc_out;
+            systolic_array[done]=pe4.done;
+        }
+    }
+    control {
+        systolic_array;
+    }
+}
