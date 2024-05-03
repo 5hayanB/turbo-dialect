@@ -1,4 +1,4 @@
-root ::= module+ "\n"
+root ::= module "\n"
 
 module ::= ports identifier ports body
 
@@ -16,7 +16,7 @@ enumerate ::= identifier "," identifier ":enumerate(" (identifier | arrayLiteral
 body ::= "{" statement+ "}"
 statement ::= assignment | for
 assignment ::= identifier "=" expression ";"
-expression ::= literal | "(" expression ")" | (expression operator expression)
+expression ::= literal | identifier | "(" expression ")" | (expression operator expression)
 literal ::= integer | register | arrayLiteral
 
 # Array
