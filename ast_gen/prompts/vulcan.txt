@@ -4,24 +4,30 @@ Literals:
 - register literal: All expressions represent wires by default. To define a register variable, a register literal is assigned to the variable. A register literal is an integer preceded by "r'". Example r'4, r'32, etc.
 - array literal: An array literal is a Python-like list of wires, registers or other array elements. All elements of the array literal must have equal bit-widths, just like how a C array must have elements of the same type. All elements are comma separated and enclosed within square brackets. Example [wire1,wire2,reg1,...]
 Variables:
-- identifiers: identifiers may represent wires, registers or arrays.
-Arrays:
-- array elements: Array elements are indexed like Python lists, i.e. integers enclosed in []. Arrays are 0-indexed. Example arr1[0], arr1[3], etc.
+- identifiers: Identifiers may represent wires, registers or arrays.
+- array elements: Array elements are indexed like Python lists, i.e. index enclosed in []. Arrays are 0-indexed. Example arr1[0], arr1[3], etc.
+- array declaration: Array declarations are used within port definitions and are defined as array element definition with the exception that array length is enclosed within [] instead of index.
+Operators:
+By default, operators have no precedence. Parenthesize expressions in order to apply precedence.
+- Binary:
+-- arithmetic: + - *
 Module declaration:
-A hardware module is defined as a C-like function whose output ports are defined instead of return types and input ports are defined instead of parameters with the name of the module between the input and output port defintions. Both input and output ports are comma separated and inside parenthesis. Each port is defined as an identifier and bit-width separated by a colon. The body of the function is defined inside braces. For example,
+A hardware module is defined as a C-like function whose output ports are defined instead of return types and input ports are defined instead of parameters with the name of the module between the input and output port defintions. Both input and output ports are comma separated and inside parenthesis. Each port is defined as an identifier and bit-width separated by a colon. The body of the function is defined inside braces. Example
 ```
-(out0:1,out1:1,...)main(in1:1,in2:1,...){}
+(out0:1,out1:4,out2[4]:32,...)main(in0:2,in1:32,in2[3]:16...){}
 ```
-A statement consists of the following.
-- Assignments: A variable on the left hand side of = and an expression or a literal on the right hand side. Example,
+Assignments:
+A variable on the left hand side of = and an expression or a literal on the right hand side. Example
 ```
 a=0;
-b=r'0;
+b=r'1;
+c=a+b;
 ```
-- For Loops: The body of the for loop is executed as many times as indicated by the condition clause. The condition clause can be of the following forms.
--- Enumerate: A Java-like enumerate form where two variables separated by a comma (the first variable defines the array index and the second variable defines the element at that index) are defined at the left hand side of a colon and an enumerate keyword with an array identifier or an array literal as its argument. Example,
+For Loop:
+The body of the for loop is executed as many times as indicated by the condition clause. The condition clause of the for loop can be of the following forms.
+- Enumerate: A Java-like enumerate form where two variables separated by a comma (the first variable defines the array index and the second variable defines the element at that index) are defined at the left hand side of a colon and an enumerate keyword with an array identifier or an array literal as its argument. Example,
 ```
 for(i,v:enumerate(array1)){}
 for(i,v:enumerate([in1,in2,...])){}
 ```
-Variables on the let hand side
+
