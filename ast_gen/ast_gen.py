@@ -4,7 +4,7 @@ from models import MODELS
 
 
 # load model
-MODEL = MODELS['meta-llama-3-8b-instruct']
+MODEL = MODELS['mistral-7b-instruct-v0.1']
 LLM = Llama(
     model_path=MODEL['path'],
     n_ctx=MODEL['n_ctx'],
@@ -25,18 +25,19 @@ def get_ast(prompt, grammar_file, role_file, description_file):
     # sys_prompt = f'{role}{template}{description}'
     sys_prompt = f'{role}{description_file}'
 
-    # while True:
-    response = LLM.create_chat_completion(
-        messages=[
-            {'role': 'system', 'content': sys_prompt},
-            {'role': 'user', 'content': prompt}
-        ],
-        grammar=grammar,
-        max_tokens=None,
-        stop=['\n']
-    )
-    #    if response['choices'][0]['finish_reason'] == 'stop':
-    #        break
+    while True:
+        response = LLM.create_chat_completion(
+            messages=[
+                {'role': 'system', 'content': sys_prompt},
+                {'role': 'user', 'content': prompt}
+            ],
+            grammar=grammar,
+            max_tokens=None,
+            stop=['\n']
+        )
+        if response['choices'][0]['finish_reason'] == 'stop':
+            break
+    print(f'{sys_prompt = }')
     return response['choices'][0]['message']['content']
 
 
@@ -72,5 +73,6 @@ def create_parse_tree(prompt):
         role_file='ast_gen/prompts/role.txt',
         description_file='ast_gen/prompts/vulcan.txt'
     )
+    print(f'{prompt = }')
     print(f'{vulcan_code = }')
 
