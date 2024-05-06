@@ -1,0 +1,16 @@
+root ::= wires "\n"
+
+identifier ::= [a-zA-Z] [a-zA-Z0-9]*
+naturalNum ::= [1-9] [0-9]*
+wholeNum ::= [0] | naturalNum
+
+name ::= "name:" identifier
+dest ::= "dest:" identifier
+src ::= "src:" identifier
+guard ::= "grd:" identifier
+done ::= "done:" identifier
+
+assignment ::= "assign" wholeNum "{" dest "," src "," guard "}"
+group ::= "grp" wholeNum  "{" name "," assignment+ done "}"
+wire ::= assignment | group
+wires ::= "wires{" wire+ "}"

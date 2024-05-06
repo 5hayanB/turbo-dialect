@@ -1,3 +1,4 @@
+import os
 class AstNode:
     def __init__(self, node_type):
         self.node_type = node_type
@@ -97,11 +98,19 @@ def read_ast_file(file_path):
         return file.read()
 def write_calyx_file(file_path, calyx_code):
     with open(file_path, "w") as dest_file:
+<<<<<<< HEAD
         dest_file.write("{}{}".format(calyx_code, "\n"))
         
 # Provide the path to your AST text file
 ast_file_path = "/home/talha/turbo-dialect/ast_gen/templates/decompressed_ast_redesign.txt"
 dest_file_path = "/home/talha/turbo-dialect/ast-dialect/gen_calyx.futil"
+=======
+        dest_file.write(calyx_code)
+# Provide the path to your AST text file
+
+ast_file_path = "/home/asghar/Documents/repos/turbo-dialect/ast_gen/templates/decompressed_ast_redesign.txt"
+dest_file_path = "/home/asghar/Documents/repos/turbo-dialect/ast-dialect/gen_calyx.futil"
+>>>>>>> 9dfe3a57de5d0d00749fec7c341d942fbbb10779
 
 
 # try:
@@ -118,7 +127,11 @@ dest_file_path = "/home/talha/turbo-dialect/ast-dialect/gen_calyx.futil"
 ast_text = read_ast_file(ast_file_path)
 parsed_ast = parse_ast(ast_text)
 calyx_code = convert_to_calyx(parsed_ast)
+<<<<<<< HEAD
 dest_file = write_calyx_file(dest_file_path,calyx_code)
+=======
+dest_file = write_calyx_file(dest_file_path, calyx_code)
+>>>>>>> 9dfe3a57de5d0d00749fec7c341d942fbbb10779
 # print(calyx_code)
 
 

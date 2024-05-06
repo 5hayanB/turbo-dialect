@@ -1,4 +1,5 @@
-Vulcan language description.
+Vulcan language description:
+The Vulcan programming language models hardware module description into a high level programming language. In Vulcan, each hardware module is represented as a function. Following are the primitives and constructs of the language.
 Literals:
 - integers
 - register literal: All expressions represent wires by default. To define a register variable, a register literal is assigned to the variable. A register literal is an integer preceded by "r'". Example r'4, r'32, etc.
@@ -14,7 +15,7 @@ By default, operators have no precedence. Parenthesize expressions in order to a
 Module declaration:
 A hardware module is defined as a C-like function whose output ports are defined instead of return types and input ports are defined instead of parameters with the name of the module between the input and output port defintions. Both input and output ports are comma separated and inside parenthesis. Each port is defined as an identifier and bit-width separated by a colon. The body of the function is defined inside braces. Example
 ```
-(out0:1,out1:4,out2[4]:32,...)main(in0:2,in1:32,in2[3]:16...){}
+(out0:1,out1:4,out2[4]:32)main(in0:2,in1:32,in2[3]:16){}
 ```
 Assignments:
 A variable on the left hand side of = and an expression or a literal on the right hand side. Example

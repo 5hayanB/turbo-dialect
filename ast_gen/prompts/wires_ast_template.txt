@@ -1,0 +1,4 @@
+Following is the template for the abstract syntax tree.
+```
+wires{assign0{dest:name,src:name,grd:name}grp0{name:name,assign1{dest:name,src:name,grd:name}assign2{dest:name,src:name,grd:name}done:doneCond}}
+```
