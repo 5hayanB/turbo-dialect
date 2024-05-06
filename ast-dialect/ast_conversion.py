@@ -95,11 +95,13 @@ def convert_to_calyx(node):
 def read_ast_file(file_path):
     with open(file_path, "r") as file:
         return file.read()
+def write_calyx_file(file_path, calyx_code):
     with open(file_path, "w") as dest_file:
         dest_file.write("{}{}".format(calyx_code, "\n"))
+        
 # Provide the path to your AST text file
-ast_file_path = "/home/asghar/Documents/repos/turbo-dialect/ast-gen/templates/decompressed_ast_redesign.txt"
-dest_file_path = "ast-dialect/gen_calyx.txt"
+ast_file_path = "/home/talha/turbo-dialect/ast_gen/templates/decompressed_ast_redesign.txt"
+dest_file_path = "/home/talha/turbo-dialect/ast-dialect/gen_calyx.futil"
 
 
 # try:
@@ -114,9 +116,9 @@ dest_file_path = "ast-dialect/gen_calyx.txt"
 #     print(f"Error parsing AST: {e}")
 
 ast_text = read_ast_file(ast_file_path)
-dest_file = read_ast_file(dest_file_path)
 parsed_ast = parse_ast(ast_text)
 calyx_code = convert_to_calyx(parsed_ast)
+dest_file = write_calyx_file(dest_file_path,calyx_code)
 # print(calyx_code)
 
 
