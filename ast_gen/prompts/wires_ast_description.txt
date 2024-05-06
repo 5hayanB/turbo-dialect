@@ -6,3 +6,4 @@ An assignment node contains three leaf nodes.
 A group node contains two nodes.
 - "name" node tells the name of the group.
 - "assign" node will be an assignment node.
+

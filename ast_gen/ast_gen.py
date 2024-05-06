@@ -42,30 +42,37 @@ def get_ast(prompt, grammar_file, role_file, description_file, template_file):
 
 
 def create_parse_tree(prompt):
-     top_module_ast = get_ast(
-         prompt,
-         grammar_file='ast_gen/grammar/top_module_ast.gbnf',
-         role_file='ast_gen/prompts/top_module_role.txt',
-         template_file='ast_gen/prompts/top_module_ast_template.txt',
-         description_file='ast_gen/prompts/top_module_ast_description.txt'
-     )
-     io_ast = get_ast(
-         prompt,
-         grammar_file='ast_gen/grammar/io_ast.gbnf',
-         role_file='ast_gen/prompts/io_role.txt',
-         template_file='ast_gen/prompts/io_ast_template.txt',
-         description_file='ast_gen/prompts/io_ast_description.txt'
-     )
-     cell_ast = get_ast(
-         prompt,
-         grammar_file='ast_gen/grammar/cells_ast.gbnf',
-         role_file='ast_gen/prompts/cells_role.txt',
-         template_file='ast_gen/prompts/cells_ast_template.txt',
-         description_file='ast_gen/prompts/cells_ast_description.txt'
-     )
-     print(f'{top_module_ast = }')
-     print(f'{io_ast = }')
-     print(f'{cell_ast = }')
+    top_module_ast = get_ast(
+        prompt,
+        grammar_file='ast_gen/grammar/top_module_ast.gbnf',
+        role_file='ast_gen/prompts/top_module_role.txt',
+        template_file='ast_gen/prompts/top_module_ast_template.txt',
+        description_file='ast_gen/prompts/top_module_ast_description.txt'
+    )
+    io_ast = get_ast(
+        prompt,
+        grammar_file='ast_gen/grammar/io_ast.gbnf',
+        role_file='ast_gen/prompts/io_role.txt',
+        template_file='ast_gen/prompts/io_ast_template.txt',
+        description_file='ast_gen/prompts/io_ast_description.txt'
+    )
+    cell_ast = get_ast(
+        prompt,
+        grammar_file='ast_gen/grammar/cells_ast.gbnf',
+        role_file='ast_gen/prompts/cells_role.txt',
+        template_file='ast_gen/prompts/cells_ast_template.txt',
+        description_file='ast_gen/prompts/cells_ast_description.txt'
+    )
+    wires_ast = get_ast(
+        prompt,
+        grammar_file='ast_gen/grammar/wires_ast.gbnf',
+        role_file='./prompts/wires_role.txt',
+        template_file='./prompts/wires_ast_template.txt',
+        description_file='./prompts/wires_ast_description.txt'
+    )
+    print(f'{top_module_ast = }')
+    print(f'{io_ast = }')
+    print(f'{cell_ast = }')
 
    # vulcan_code = get_ast(
      #   prompt,
