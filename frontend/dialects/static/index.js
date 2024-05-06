@@ -20,13 +20,16 @@ function startProgress() {
             outputContainer.style.display = "block";
             // Display the output file
             displayOutputFile();
+            // Show the download button
+            downloadButton.style.display = "block";
         } else {
             width++;
             progressBar.style.width = width + "%";
             if (width === 100) {
                 // Call the function to display the output file
-                displayOutputFile();
-                
+              displayOutputFile();
+              // Show the download button
+              downloadButton.style.display = "block";  
             }
         }
     }
@@ -35,10 +38,27 @@ function startProgress() {
 
 function displayOutputFile() {
   // Replace 'file.pdf' with the path to your file
-  document.getElementById("outputFile").src = '/dialects/static/4x4_systolic_array.v';
+  var outputFileUrl = '/home/asghar/Documents/repos/turbo-dialect/frontend/4x4_systolic_array.v';
+  var outputFile = document.getElementById("outputFile");
+  
+  outputFile.src = outputFileUrl;
   alert("File is ready for download");
+
 }
 
+function downloadFile() {
+  // var downloadButton = document.getElementById("downloadButton");
+  var fileUrl = '/home/asghar/Documents/repos/turbo-dialect/frontend/4x4_systolic_array.v'; // Replace with the correct URL
+  
+  var link = document.createElement('a');
+  link.href = fileUrl;
+  link.download = fileUrl.split('/').pop();
+  
+  document.body.appendChild(link);
+  
+  link.click(); // Programmatically trigger the download
+  document.body.removeChild(link); // Clean up the temporary link element
+}
 
 // Function to display the first popup
 window.onload = function() {
