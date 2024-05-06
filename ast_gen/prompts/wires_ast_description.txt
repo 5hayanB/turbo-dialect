@@ -1,1 +1,8 @@
-Each wire node contains either an assignment node or a group node. 
+Each wire node contains either an assignment node or a group node.
+An assignment node contains three leaf nodes.
+- "dest" node represents the destination node of the assignment.
+- "src" node represents the source node of the assignment.
+- "grd" node represents the guard node that permits the assignment if the value of the node is 1. The identifier of the guard node must a primitive of 1-bit.
+A group node contains two nodes.
+- "name" node tells the name of the group.
+- "assign" node will be an assignment node.
