@@ -1,8 +1,7 @@
 import sys
 from django.shortcuts import render
 
-sys.path.insert(0, '../../ast_gen/ast_gen')
-from ast_gen import create_parse_tree
+sys.path.insert(0, '../../ast_gen/ast_gen.create_parse_tree')
 
 # Create your views here.
 # Django views for the Turbo Dialect chatbot
