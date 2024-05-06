@@ -8,16 +8,12 @@ import sys
 sys.path.insert(0, '/home/talha/turbo-dialect/ast-dialect/ast_conversion.convert_to_calyx')
 
 
-def convert_futil_to_verilog(futil_file_path):
-    command = f"fud e tests/verilog/untitled.futil --to verilog --from calyx"
+def convert_futil_to_verilog(futil_file_path ):
+    command = f"fud e tests/calyxir/untitled.futil --to verilog --from calyx > tests/verilog/untitled.v "
     result = subprocess.run(command, shell=True, capture_output=True, text=True)
-    return result.stdout
 
-def convert_futil(request):
-    if request.method == 'POST':
-        futil_file_path = request.POST.get('futil_file_path')
-        verilog_output = convert_futil_to_verilog(futil_file_path)
-        return render(request, 'index.html', {'verilog_output': verilog_output})
-    else:
-        return render(request, 'index.html')
+def read_verilog():
+    with open('tests/verilog/untitled.v', 'r') as file:
+        verilog_code = file.read()
+    return verilog_code
     
