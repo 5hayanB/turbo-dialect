@@ -1,0 +1,49 @@
+import "primitives/core.futil";
+import "primitives/binary_operators.futil";
+
+component main(left: 32, right: 32) -> (out: 32) {
+    cells {
+        multiplier = std_mult_pipe(32);
+    }
+    wires {
+        group MultiplyGroup {
+            multiplier.left = left;
+            multiplier.right = right;
+            multiplier.go = 1'd1; // Drive the go signal
+            out = multiplier.out;
+            MultiplyGroup[done] = multiplier.done;
+        }
+    }
+    control {
+        MultiplyGroup;
+    }
+}
+
+component SIMDMatrixMultiply(A0: 32, A1: 32, A2: 32, A3: 32, B0: 32, B1: 32, B2: 32, B3: 32) -> (C0: 32, C1: 32, C2: 32, C3: 32) {
+    cells {
+        m0 = main();
+        m1 = main();
+        m2 = main();
+        m3 = main();
+    }
+    wires {
+        group SIMDGroup {
+            m0.left = A0;
+            m0.right = B0;
+            m1.left = A1;
+            m1.right = B1;
+            m2.left = A2;
+            m2.right = B2;
+            m3.left = A3;
+            m3.right = B3;
+            C0 = m0.out;
+            C1 = m1.out;
+            C2 = m2.out;
+            C3 = m3.out;
+            SIMDGroup[done] = m1.done,m3.done;
+        }
+    }
+    control {
+        SIMDGroup;
+    }
+}
