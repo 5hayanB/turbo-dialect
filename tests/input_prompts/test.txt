@@ -1,0 +1,1 @@
+four by 16 multiplexer connected with two flip flops in the sequential order

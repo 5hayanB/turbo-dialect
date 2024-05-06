@@ -8,6 +8,6 @@ def get_prompt(file):
 
 
 if __name__ == '__main__':
-    prompt = get_prompt('tests/input_prompts/processing_element_dataflow.txt')
+    prompt = get_prompt('tests/input_prompts/test.txt')
     create_parse_tree(prompt)
 

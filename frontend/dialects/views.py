@@ -1,4 +1,7 @@
+import sys
 from django.shortcuts import render
+
+sys.path.insert(0, '../../ast_gen/ast_gen.create_parse_tree')
 
 # Create your views here.
 # Django views for the Turbo Dialect chatbot
@@ -22,6 +25,7 @@ def index(request):
 def process_input(user_input):
     # Function to process user input
     # For example, you can perform some text processing here
+    create_parse_tree(user_input)
     return user_input.upper()  # Just converting input to uppercase for demonstration
 
 def input_view(request):
