@@ -5,7 +5,7 @@ naturalNum ::= [1-9] [0-9]*
 
 width ::= "width:" naturalNum
 
-port ::= identifier "->" naturalNum "{" width "}"
+port ::= identifier "{" width "}"
 inputs ::= "inputs{" port+ "}"
 outputs ::= "outputs{" port+ "}"
 

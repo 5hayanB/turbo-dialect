@@ -1,0 +1,1 @@
+Each wire node contains either an assignment node or a group node. 

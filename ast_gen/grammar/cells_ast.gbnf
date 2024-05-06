@@ -17,6 +17,6 @@ widthCtrlClass ::= class ("slice" | "pad")
 widthCtrlParams ::= inWidth "," outWidth
 
 primitive ::= (widthClass "," width) | (constClass "," constParams) | (widthCtrlClass "," widthCtrlParams)
-cell ::= identifier "->" naturalNum "{" primitive "}"
+cell ::= identifier "{" primitive "}"
 cells ::= "cells{" cell+ "}"
 
