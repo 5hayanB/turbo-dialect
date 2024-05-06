@@ -1,10 +1,10 @@
-root ::= module+ "\n"
+root ::= module "\n"
 
 module ::= ports identifier ports body
 
 # Ports
 ports ::= "(" port+ ")"
-port ::= (identifier | arrayDecl) ":" naturalNum ","?
+port ::= (identifier | arrayDecl) ":" naturalNum ","
 
 # Loops
 for ::= "for" condition body
@@ -16,14 +16,14 @@ enumerate ::= identifier "," identifier ":enumerate(" (identifier | arrayLiteral
 body ::= "{" statement+ "}"
 statement ::= assignment | for
 assignment ::= identifier "=" expression ";"
-expression ::= literal | "(" expression ")" | (expression operator expression)
+expression ::= literal | identifier | "(" expression ")" | (expression operator expression)
 literal ::= integer | register | arrayLiteral
 
 # Array
 arrayDecl ::= identifier ("[" naturalNum "]")+
 arrayIndexed ::= identifier ("[" wholeNum "]")+
 arrayLiteral ::= "[" element* "]"
-element ::= identifier | arrayIndexed
+element ::= (identifier | arrayIndexed) ","
 
 # Primitives
 register ::= "r'" integer
@@ -31,5 +31,5 @@ operator ::= "+" | "-" | "*"
 integer ::= ("-" naturalNum) | wholeNum
 wholeNum ::= "0" | naturalNum
 naturalNum ::= [1-9] [0-9]*
-identifier ::= [a-zA-Z_] [a-zA-Z_0-9]*
+identifier ::= [a-zA-Z] [a-zA-Z0-9]*
 
