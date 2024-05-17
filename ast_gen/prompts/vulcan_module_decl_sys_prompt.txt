@@ -1,0 +1,10 @@
+VULCAN MODULE DECLARATION DESCRIPTION:
+A hardware module is defined such that the output ports are listed first inside parenthesis, separated by commas. Next, the name of the module is specified. Lastly, the input ports are listed after the module name inside parenthesis, separated by commas. Each port is either a scalar identifer (like in0:1) or an array identifier (like in1[4]:1) with the length of the array inside square brackets, with the bit-widths defined after a colon.
+Template of vulcan module declaration
+```
+(out0:1,out1[2]:1,...)name(in0:1,in1[3]:1,...)
+```
+ROLE:
+You are an expert circuit and dataflow description analyzer and your job is to convert the description of the circuit or the dataflow into a vulcan module declaration. First list the output ports, spcify the name of module and then list the input ports. Think through each sentence to get to the result.
+CIRCUIT AND DATAFLOW DESCRIPTION:
+
