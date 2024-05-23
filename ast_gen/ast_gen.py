@@ -13,12 +13,18 @@ LLM = Llama(
 )
 
 
-def llm_response(sys_prompt, user_prompt, debug=False, debug_msg=''):
+def llm_response(sys_prompt, user_prompt, grammar=None, debug=False, debug_msg=''):
     while True:
-        response = LLM.create_chat_completion(
-            messages=[{'role': 'system', 'content': sys_prompt},
-                      {'role': 'user', 'content': user_prompt}],
-            max_tokens=None)
+        if grammar:
+            response = LLM.create_chat_completion(
+                messages=[{'role': 'system', 'content': sys_prompt},
+                          {'role': 'user', 'content': user_prompt}],
+                max_tokens=None, grammar=grammar)
+        else:
+            response = LLM.create_chat_completion(
+                messages=[{'role': 'system', 'content': sys_prompt},
+                          {'role': 'user', 'content': user_prompt}],                                   
+                max_tokens=None)
         if debug:
             print(f'\n{debug_msg}:\n{response["choices"][0]["message"]["content"]}')
         if response['choices'][0]['finish_reason'] == 'stop':
@@ -45,47 +51,25 @@ def extract_module_name(prompt, debug=False):
 
 def extract_input_ports(prompt, debug=False):
     LLM.reset()
-    grammar = LlamaGrammar.from_file(file=os.path.join('ast_gen', 'grammar', 'vulcan_ports.gbnf'))
     prompts_path = os.path.join('ast_gen', 'prompts', 'inputs')
     # Identify inputs
     with open(os.path.join(prompts_path, 'identify_inputs.txt')) as f:
         sys_prompt = f'ROLE:\n{f.read()}'
-    while True:
-        response = LLM.create_chat_completion(
-            messages=[{'role': 'system', 'content': sys_prompt},
-                      {'role': 'user', 'content': prompt}],
-            max_tokens=None)
-        if debug:
-            print(f'\nidentified_inputs:\n{response}')
-        if response['choices'][0]['finish_reason'] == 'stop':
-            identified_inputs = f'EXPLANATION:\n{response["choices"][0]["message"]["content"]}'
-            break
+    identified_inputs = f'EXPLANATION:\n{llm_response(sys_prompt, prompt, debug, "identified_inputs")}'
     # Check grouping
     with open(os.path.join(prompts_path, 'check_grouping.txt')) as f:
         sys_prompt = f'ROLE:\n{f.read()}'
-    while True:
-        response = LLM.create_chat_completion(
-            messages=[{'role': 'system', 'content': sys_prompt},
-                      {'role': 'user', 'content': identified_inputs}],
-            max_tokens=None, grammar=grammar)
-        if debug:
-            print(f'\ngrouping_check:\n{response}')
-        if response['choices'][0]['finish_reason'] == 'stop':
-            grouping_check = f'GROUPING CHECK:\n{response["choices"][0]["message"]["content"]}'
-            break
-    # with open(os.path.join(prompts_path, 'check_grouping.txt')) as f:
-    #     sys_prompt = f'ROLE:\n{f.read()}'
-    # while True:
-    #     response = LLM.create_chat_completion(
-    #         messages=[{'role': 'system', 'content': sys_prompt},
-    #                   {'role': 'user', 'content': inputs_extract+identified_inputs}]
-    #     )
-    #     if debug:
-    #         print(f'\ngrouping_check_response:\n{response}')
-    #     if response['choices'][0]['finish_reason'] == 'stop':
-    #         grouping_check = f'CHECK GROUPING\nresponse['choices']
-    ports = response['choices'][0]['message']['content']
-    return ports
+    grouping_check = f'GROUPING CHECK:\n{llm_response(sys_prompt, identified_inputs, debug, "grouping_check")}'
+    # Assign variables
+    with open(os.path.join(prompts_path, 'assign_variables')) as f:
+        sys_prompt = f'ROLE:\n{f.read()}'
+    assign_variables = f'ASSIGNED VARIABLES:\n{llm_response(sys_prompt, grouping_check, debug, "assign_variables")}'
+    # Input ports
+    grammar = LlamaGrammar.from_file(file=os.path.join('ast_gen', 'grammar', 'vulcan_ports.gbnf'))
+    with open(os.path.join(prompts_path, 'input_ports.txt')) as f:
+        sys_prompt = f'ROLE:\n{f.read()}'
+    input_ports = llm_response(sys_prompt, assign_variables, debug, 'input_ports')
+    return input_ports
 
 
 def extract_output_ports(prompt, extraction_prompt_file, input_ports, debug=False):
