@@ -1,0 +1,2 @@
+There was no name inside quotes found. Ensure that the name of the circuit and dataflow description module is inside quotes and should not include whitespace. Example "ModuleName".
+

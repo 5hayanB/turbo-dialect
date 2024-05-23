@@ -1,0 +1,10 @@
+From the explanation, list the input ports mentioned. The listing of input ports should conform with the following rules.
+INPUT PORTS LISTING RULES:
+* Input ports should listed inside parenthesis and separated by comma.
+* A single port is a variable with its bitwidth specified after a colon. Example,
+- in:1 where in is the variable name while 1 is its bitwidth.
+- dataIn:2 where dataIn is the variable name while 2 is its bitwidth.
+* Group similar bitwidth input ports such that the grouped ports are represented by a single variable and the number of grouped ports is specified inside square brackets. Example,
+- dataIn[6]:4 where dataIn is the variable name, [6] specifies the number of ports inside the group and 4 is the bitwidth of each of the ports in the grouping.
+- in[3]:8 where in is the variable name, [3] specifies the number of ports inside the group and 8 is the bitwidth of each of ports in the grouping.
+

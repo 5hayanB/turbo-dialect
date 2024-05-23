@@ -1,13 +1,11 @@
-import os
+import os, re
 from llama_cpp import Llama, LlamaGrammar
 
 from models import MODELS
 
 
 # load model
-# MODEL = MODELS['meta-llama-3-8b']
-# MODEL = MODELS['mistral-7b-v0.1']
-MODEL = MODELS['codellama-13b-instruct']
+MODEL = MODELS['meta-llama-3-8b-instruct']
 LLM = Llama(
     model_path=MODEL['path'],
     n_ctx=MODEL['n_ctx'],
@@ -15,60 +13,110 @@ LLM = Llama(
 )
 
 
-def get_code(prompt, grammar_file, description_file):
-    grammar = LlamaGrammar.from_file(file=os.path.join('ast_gen', 'grammar', grammar_file))
+def extract_module_name(prompt, debug=False):
+    LLM.reset()
+    prompts_dir = os.path.join('ast_gen', 'prompts', 'module_name')
+    with open(os.path.join(prompts_dir, 'extract_name.txt')) as f:
+        sys_prompt = f'ROLE:\n{f.read()}'
+    while True:
+        response = LLM.create_chat_completion(
+            messages=[{'role': 'system', 'content': sys_prompt},
+                      {'role': 'user', 'content': prompt}],
+            max_tokens=None)
+        if debug:
+            print(f'\nmodule_name_response:\n{response}')
+        if response['choices'][0]['finish_reason'] == 'stop':
+            module_name = re.findall('"[a-zA-Z_][a-zA-Z_0-9]*"', response['choices'][0]['message']['content'])
+            if module_name:
+                break
+            else:
+                with open(os.path.join(prompts_dir, 'name_inclusion.txt')) as f:
+                    sys_prompt = f'ROLE:\n{f.read()}'
+    return module_name[0].strip('"')
 
-    # with open(role_file, 'r', encoding='utf-8') as f:
-    #     role = f.read()
-    # with open(template_file, 'r', encoding='utf-8') as f:
-    #     template = f.read()
-    with open(os.path.join('ast_gen', 'prompts', description_file), 'r', encoding='utf-8') as f:
-        sys_prompt = f.read()
-    # sys_prompt = f'{role}{template}{description}'
-    # sys_prompt = f'{description_file}{role}'
 
+def extract_input_ports(prompt, debug=False):
+    LLM.reset()
+    grammar = LlamaGrammar.from_file(file=os.path.join('ast_gen', 'grammar', 'vulcan_ports.gbnf'))
+    prompts_path = os.path.join('ast_gen', 'prompts', 'inputs')
+    # Identify inputs
+    with open(os.path.join(prompts_path, 'identify_inputs.txt')) as f:
+        sys_prompt = f'ROLE:\n{f.read()}'
+    while True:
+        response = LLM.create_chat_completion(
+            messages=[{'role': 'system', 'content': sys_prompt},
+                      {'role': 'user', 'content': prompt}],
+            max_tokens=None)
+        if debug:
+            print(f'\nidentified_inputs:\n{response}')
+        if response['choices'][0]['finish_reason'] == 'stop':
+            identified_inputs = f'EXPLANATION:\n{response["choices"][0]["message"]["content"]}'
+            break
+    # Check grouping
+    with open(os.path.join(prompts_path, 'check_grouping.txt')) as f:
+        sys_prompt = f'ROLE:\n{f.read()}'
+    while True:
+        response = LLM.create_chat_completion(
+            messages=[{'role': 'system', 'content': sys_prompt},
+                      {'role': 'user', 'content': identified_inputs}],
+            max_tokens=None, grammar=grammar)
+        if debug:
+            print(f'\ngrouping_check:\n{response}')
+        if response['choices'][0]['finish_reason'] == 'stop':
+            grouping_check = f'GROUPING CHECK:\n{response["choices"][0]["message"]["content"]}'
+            break
+    # with open(os.path.join(prompts_path, 'check_grouping.txt')) as f:
+    #     sys_prompt = f'ROLE:\n{f.read()}'
     # while True:
-    response = LLM.create_chat_completion(
-        messages=[
-            {'role': 'system', 'content': sys_prompt},
-            {'role': 'user', 'content': prompt}
-        ],
-        grammar=grammar,
-        max_tokens=None,
-        stop=['\n']
-    )
-        # if response['choices'][0]['finish_reason'] == 'stop':
-        #     break
-        # print(f'{response = }')
-    return response['choices'][0]['message']['content']
-
-        # response = LLM.create_completion(sys_prompt+prompt, grammar=grammar, max_tokens=None, stop=['\n'])
-        # if response['choices'][0]['finish_reason'] == 'stop':
-        #     break
-    # return response['choices'][0]['text']
+    #     response = LLM.create_chat_completion(
+    #         messages=[{'role': 'system', 'content': sys_prompt},
+    #                   {'role': 'user', 'content': inputs_extract+identified_inputs}]
+    #     )
+    #     if debug:
+    #         print(f'\ngrouping_check_response:\n{response}')
+    #     if response['choices'][0]['finish_reason'] == 'stop':
+    #         grouping_check = f'CHECK GROUPING\nresponse['choices']
+    ports = response['choices'][0]['message']['content']
+    return ports
 
 
-# def get_reason(prompt, code, reason_file):
-#     with open(os.path.join('ast_gen', 'prompts', reason_file), 'r', encoding='utf-8') as f:
-#         reason_prompt = f.read()
-#     sys_prompt = 
-#     while True:
-#         response = LLM.create_completion(sys_prompt, max_tokens=None, stop=['\n'])
-#         if response['choices'][0]['finish_reason'] == 'stop':
-#             break
-#     return response['choices'][0]['text']
+def extract_output_ports(prompt, extraction_prompt_file, input_ports, debug=False):
+    with open(os.path.join('ast_gen', 'prompts', extraction_prompt_file)) as f:
+        extraction_prompt = [f'ROLE:\n{f.read()}Do not use the following input port names for the output ports:\n']
+
+    input_port_names = [port.split(': ')[0] for port in input_ports]
+    for name in input_port_names:
+        extraction_prompt.append(f'* {name}\n')
+
+    correct = False
+    while not correct:
+        response = LLM.create_chat_completion(
+            messages=[{'role': 'system', 'content': ''.join(extraction_prompt)},
+                      {'role': 'user', 'content': prompt}],
+            max_tokens=None)
+        print(f'{response = }')
+        if response['choices'][0]['finish_reason'] == 'stop':
+            output_ports = [port.lower() for port in re.findall('[a-zA-Z_0-9]+: [0-9]+', response['choices'][0]['message']['content'])]
+            output_port_names = [port.split(': ')[0] for port in output_ports]
+            print(f'{input_port_names = }')
+            print(f'{output_port_names = }')
+            for output_port_name in output_port_names:
+                if output_port_name in input_port_names:
+                    extraction_prompt = 'The output port names are identical to the input port names. Name them something different according to the circuit and dataflow description.'
+                    break
+            else:
+                correct = True
+    return response
 
 
-def do_reasoning(prompt, reasoning_description_file):
-    with open(os.path.join('ast_gen', 'prompts', reasoning_description_file)) as f:
-        reasoning_description = f.read()
-    # while True:
-    reasoning = LLM.create_completion(reasoning_description+prompt, max_tokens=None)
-    return reasoning['choices'][0]['text']
-
-
-def create_vulcan_module(prompt):
-    circuit_description = f'CIRCUIT AND DATAFLOW DESCRIPTION:\n{prompt}\n'
+def create_vulcan_module(prompt, debug=False):
+    circuit_description = f'CIRCUIT AND DATAFLOW DESCRIPTION:\n{prompt}'
+    module_name = extract_module_name(circuit_description, debug=debug)
+    inputs = extract_input_ports(circuit_description, debug=debug)
+    # outputs = extract_output_ports(circuit_description, 'extract_outputs_prompt.txt', inputs)
+    print(f'{module_name = }')
+    print(f'{inputs = }')
+    # print(f'{outputs = }')
     # top_module_ast = get_ast(
     #     prompt,
     #     grammar_file='ast_gen/grammar/top_module_ast.gbnf',
@@ -100,11 +148,4 @@ def create_vulcan_module(prompt):
     # print(f'{top_module_ast = }')
     # print(f'{io_ast = }')
     # print(f'{cell_ast = }')
-
-    # correct = False
-    # while not correct:
-    # reasoning = do_reasoning(prompt, 'vulcan_module_decl_reasoning_prompt.txt')
-    # print(f'{reasoning = }')
-    vulcan_module_decl = get_code(prompt, grammar_file='vulcan_module_decl.gbnf', description_file='vulcan_module_decl_sys_prompt.txt')
-    print(f'{vulcan_module_decl = }')
 

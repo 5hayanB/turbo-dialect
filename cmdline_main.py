@@ -9,5 +9,5 @@ def get_prompt(file):
 
 if __name__ == '__main__':
     prompt = get_prompt('tests/input_prompts/processing_element.txt')
-    create_vulcan_module(prompt)
+    create_vulcan_module(prompt, debug=True)
 

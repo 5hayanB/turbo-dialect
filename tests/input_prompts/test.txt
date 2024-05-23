@@ -1,1 +1,1 @@
-four by 16 multiplexer connected with two flip flops in the sequential order
+create a RV32I decoder that decodes all the instrutions of RV32I. It contains an input for the .
