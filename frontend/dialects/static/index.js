@@ -38,7 +38,7 @@ function startProgress() {
 
 function displayOutputFile() {
   // Replace 'file.pdf' with the path to your file
-  var outputFileUrl = '/home/talha/turbo-dialect/frontend/4x4_systolic_array.v';
+  var outputFileUrl = '/home/asghar/Documents/repos/turbo-dialect/frontend/4x4_systolic_array.v';
   var outputFile = document.getElementById("outputFile");
   
   outputFile.src = outputFileUrl;
@@ -48,7 +48,7 @@ function displayOutputFile() {
 
 function downloadFile() {
   // var downloadButton = document.getElementById("downloadButton");
-  var fileUrl = '/home/talha/turbo-dialect/frontend/4x4_systolic_array.v'; // Replace with the correct URL
+  var fileUrl = '/home/asghar/Documents/repos/turbo-dialect/frontend/4x4_systolic_array.v'; // Replace with the correct URL
   
   var link = document.createElement('a');
   link.href = fileUrl;

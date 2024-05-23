@@ -12,7 +12,7 @@ from django.http import HttpResponse
 # from .dialects.rtl import generate_rtl_code
 
 def index(request):
-    file_path = '/home/talha/turbo-dialect/frontend/4x4_systolic_array.v'
+    file_path = '/home/asghar/Documents/repos/turbo-dialect/frontend/4x4_systolic_array.v'
     verilog_dict = {}
 
     with open(file_path, 'r') as file:

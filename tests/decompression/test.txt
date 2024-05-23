@@ -1,54 +1,54 @@
 cmpnt{
-    name:fourby16mux,
+name:fourby16mux,
     comb:false
     inputs{
-        A0{
+        A0->0{
             width:1
         }
-        A1{
+        A1->1{
             width:1
         }
-        A2{
+        A2->2{
             width:1
         }
-        A3{
+        A3->3{
             width:1
         }
     }
     outputs{
-        Q0{
+        Q0->0{
             width:1
         }
-        Q1{
+        Q1->1{
             width:1
         }
     }
     cells{
-        mux4x16{
+        mux4x16->0{
             class:const,
             width:4,
             val:0
         }
-        mux4x16{
+        mux4x16->1{
             class:const,
             width:4,
             val:1
         }
-        mux4x16{
+        mux4x16->2{
             class:const,
             width:4,
             val:2
         }
-        mux4x16{
+        mux4x16->3{
             class:const,
             width:4,
             val:3
         }
-        ff1{
+        ff1->0{
             class:reg,
             width:16
         }
-        ff2{
+        ff2->1{
             class:reg,
             width:16
         }
