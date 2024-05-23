@@ -13,25 +13,33 @@ LLM = Llama(
 )
 
 
+def llm_response(sys_prompt, user_prompt, debug=False, debug_msg=''):
+    while True:
+        response = LLM.create_chat_completion(
+            messages=[{'role': 'system', 'content': sys_prompt},
+                      {'role': 'user', 'content': user_prompt}],
+            max_tokens=None)
+        if debug:
+            print(f'\n{debug_msg}:\n{response["choices"][0]["message"]["content"]}')
+        if response['choices'][0]['finish_reason'] == 'stop':
+            break
+    return response['choices'][0]['message']['content']
+
+
 def extract_module_name(prompt, debug=False):
     LLM.reset()
     prompts_dir = os.path.join('ast_gen', 'prompts', 'module_name')
     with open(os.path.join(prompts_dir, 'extract_name.txt')) as f:
         sys_prompt = f'ROLE:\n{f.read()}'
-    while True:
-        response = LLM.create_chat_completion(
-            messages=[{'role': 'system', 'content': sys_prompt},
-                      {'role': 'user', 'content': prompt}],
-            max_tokens=None)
-        if debug:
-            print(f'\nmodule_name_response:\n{response}')
-        if response['choices'][0]['finish_reason'] == 'stop':
-            module_name = re.findall('"[a-zA-Z_][a-zA-Z_0-9]*"', response['choices'][0]['message']['content'])
-            if module_name:
-                break
-            else:
-                with open(os.path.join(prompts_dir, 'name_inclusion.txt')) as f:
-                    sys_prompt = f'ROLE:\n{f.read()}'
+    correct = False
+    while not correct:
+        module_name = llm_response(sys_prompt, prompt, debug, 'module_name')
+        module_name = re.findall('"[a-zA-Z_][a-zA-Z_0-9]*"', module_name)
+        if module_name:
+            correct = True
+        else:
+            with open(os.path.join(prompts_dir, 'name_inclusion.txt')) as f:
+                sys_prompt = f'ROLE:\n{f.read()}'
     return module_name[0].strip('"')
 
 

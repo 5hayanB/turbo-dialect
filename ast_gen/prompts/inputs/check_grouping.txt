@@ -1,2 +1,2 @@
-From the given inputs, check if there are equal bitwidth ports that can be grouped together in the context of the given explanation.
+From the identified inputs, check if there are equal bitwidth ports that can be grouped together in the context of the given explanation. If there are such ports, specify the ports that can be grouped together along with those that cannot be grouped.
 
