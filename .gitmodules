@@ -1,0 +1,3 @@
+[submodule "calyx"]
+	path = calyx
+	url = https://github.com/calyxir/calyx.git
