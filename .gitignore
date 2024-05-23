@@ -1,5 +1,6 @@
 .venv/
 .idea/
+.vscode/
 models.py
 __pycache__/
 
