@@ -57,23 +57,25 @@ def extract_input_ports(prompt, debug=False):
     identified_inputs = f'IDENTIFIED INPUT PORTS:\n{response}'
     # Check grouping
     response = llm_response(prompts_dir, 'check_input_grouping.txt', identified_inputs, debug,
-                            'grouping_check')
+                            'input_grouping_check')
     input_grouping_check = f'IDENTIFIED INPUT PORTS:\n{response}'
     # Assign variables
     response = llm_response(prompts_dir, 'assign_input_variables.txt', input_grouping_check, debug,
                             'assign_input_variables')
     assign_input_variables = f'INPUT PORTS:\n{response}'
     # Input ports
+    sys_prompt_file = 'input_ports.txt'
     while True:
         grammar = LlamaGrammar.from_file(file=os.path.join('ast_gen', 'grammar', 'vulcan_ports.gbnf'))
-        input_ports = llm_response(prompts_dir, 'input_ports.txt', assign_input_variables, debug,
+        input_ports = llm_response(prompts_dir, sys_prompt_file, assign_input_variables, debug,
                                    'input_ports', grammar)
         # Check inputs
-        check_inputs = f'{assign_input_variables}\nINPUT PORTS INSIDE PARENTHESIS{input_ports}'
+        check_inputs = f'{assign_input_variables}\nGENERATED INPUT PORTS:\n{input_ports}'
         response = llm_response(prompts_dir, 'check_inputs.txt', check_inputs, debug,
                                 'check_inputs').lower()
         if 'true' in response:
             break
+        sys_prompt_file = 'inputs_correction.txt'
     return input_ports
 
 
