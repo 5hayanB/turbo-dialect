@@ -56,20 +56,20 @@ def extract_input_ports(prompt, debug=False):
                             'identified_inputs')
     identified_inputs = f'IDENTIFIED INPUT PORTS:\n{response}'
     # Check grouping
-    response = llm_response(prompts_dir, 'check_grouping.txt', identified_inputs, debug,
+    response = llm_response(prompts_dir, 'check_input_grouping.txt', identified_inputs, debug,
                             'grouping_check')
-    grouping_check = f'IDENTIFIED INPUT PORTS:\n{response}'
+    input_grouping_check = f'IDENTIFIED INPUT PORTS:\n{response}'
     # Assign variables
-    response = llm_response(prompts_dir, 'assign_variables.txt', grouping_check, debug,
-                            'assign_variables')
-    assign_variables = f'INPUT PORTS:\n{response}'
+    response = llm_response(prompts_dir, 'assign_input_variables.txt', input_grouping_check, debug,
+                            'assign_input_variables')
+    assign_input_variables = f'INPUT PORTS:\n{response}'
     # Input ports
     while True:
         grammar = LlamaGrammar.from_file(file=os.path.join('ast_gen', 'grammar', 'vulcan_ports.gbnf'))
-        input_ports = llm_response(prompts_dir, 'input_ports.txt', assign_variables, debug,
+        input_ports = llm_response(prompts_dir, 'input_ports.txt', assign_input_variables, debug,
                                    'input_ports', grammar)
         # Check inputs
-        check_inputs = f'{assign_variables}\nINPUT PORTS INSIDE PARENTHESIS{input_ports}'
+        check_inputs = f'{assign_input_variables}\nINPUT PORTS INSIDE PARENTHESIS{input_ports}'
         response = llm_response(prompts_dir, 'check_inputs.txt', check_inputs, debug,
                                 'check_inputs').lower()
         if 'true' in response:
@@ -110,8 +110,8 @@ def create_vulcan_module(prompt, debug=False):
     circuit_description = f'CIRCUIT AND DATAFLOW DESCRIPTION:\n{prompt}'
     module_name = extract_module_name(circuit_description, debug=debug)
     inputs = extract_input_ports(circuit_description, debug=debug)
-    outputs = extract_output_ports(circuit_description, debug=debug)
+    # outputs = extract_output_ports(circuit_description, debug=debug)
     print(f'{module_name = }')
     print(f'{inputs = }')
-    print(f'{outputs = }')
+    # print(f'{outputs = }')
 
