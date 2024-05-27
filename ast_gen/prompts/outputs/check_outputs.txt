@@ -1,1 +1,1 @@
-From the given output ports and output ports inside parenthesis, check if the output ports match the output ports inside parethesis and not other extra port is specified. If they match, only respond with "true", otherwise with "false".
+From the given output ports and generated output ports, check if the output ports match the generated output ports and no other extra port is specified. If they match, only respond with "true", otherwise with "false".

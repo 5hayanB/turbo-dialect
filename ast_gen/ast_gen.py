@@ -87,24 +87,26 @@ def extract_output_ports(prompt, debug=False):
                             'identified_outputs')
     identified_outputs = f'IDENTIFIED OUTPUT PORTS:\n{response}'
     # Check grouping
-    response = llm_response(prompts_dir, 'check_grouping.txt', identified_outputs, debug,
-                            'grouping_check')
-    grouping_check = f'IDENTIFIED OUTPUT PORTS:\n{response}'
+    response = llm_response(prompts_dir, 'check_output_grouping.txt', identified_outputs, debug,
+                            'output_grouping_check')
+    output_grouping_check = f'IDENTIFIED OUTPUT PORTS:\n{response}'
     # Assign variables
-    response = llm_response(prompts_dir, 'assign_variables.txt', grouping_check, debug,
-                            'assign_variables')
-    assign_variables = f'OUTPUT PORTS:\n{response}'
+    response = llm_response(prompts_dir, 'assign_output_variables.txt', output_grouping_check, debug,
+                            'assign_output_variables')
+    assign_output_variables = f'OUTPUT PORTS:\n{response}'
     # Output ports
+    sys_prompt_file = 'output_ports.txt'
     while True:
         grammar = LlamaGrammar.from_file(file=os.path.join('ast_gen', 'grammar', 'vulcan_ports.gbnf'))
-        output_ports = llm_response(prompts_dir, 'output_ports.txt', assign_variables, debug,
+        output_ports = llm_response(prompts_dir, sys_prompt_file, assign_output_variables, debug,
                                    'output_ports', grammar)
-        # Check inputs
-        check_outputs = f'{assign_variables}\nOUTPUT PORTS INSIDE PARENTHESIS{output_ports}'
+        # Check outputs
+        check_outputs = f'{assign_output_variables}\nGENERATED OUTPUT PORTS:\n{output_ports}'
         response = llm_response(prompts_dir, 'check_outputs.txt', check_outputs, debug,
                                 'check_outputs').lower()
         if 'true' in response:
             break
+        sys_prompt_file = 'outputs_correction.txt'
     return output_ports
 
 
