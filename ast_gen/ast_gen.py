@@ -25,8 +25,10 @@ def llm_response(sys_prompt_dir, sys_prompt_file, user_prompt, debug=False,
                           {'role': 'user', 'content': user_prompt}],                                   
                 max_tokens=None)
         if debug:
-            print(f'\n{debug_msg}:\n{response}')
-            print(f'\n{debug_msg}:\n{response["choices"][0]["message"]["content"]}')
+            print(f'\n{debug_msg}_sys_prompt:\n{sys_prompt}')
+            print(f'\n{debug_msg}_user_prompt:\n{user_prompt}')
+            print(f'\n{debug_msg}_response:\n{response}')
+            print(f'\n{debug_msg}_response:\n{response["choices"][0]["message"]["content"]}')
         if response['choices'][0]['finish_reason'] == 'stop':
             break
     return response['choices'][0]['message']['content']
@@ -118,4 +120,5 @@ def create_vulcan_module(prompt, debug=False):
     print(f'{module_name = }')
     print(f'{inputs = }')
     print(f'{outputs = }')
+    return module_name, inputs, outputs
 
