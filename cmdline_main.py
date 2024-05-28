@@ -1,5 +1,10 @@
+import random
 from ast_gen.ast_gen import create_vulcan_module
 from ast_dialect.gen_calyx import gen_calyx
+
+
+random.seed(4)
+DEBUG = True
 
 
 def get_prompt(file):
@@ -10,6 +15,6 @@ def get_prompt(file):
 
 if __name__ == '__main__':
     prompt = get_prompt('tests/input_prompts/processing_element.txt')
-    vulcan_module = create_vulcan_module(prompt, debug=True)
-    gen_calyx(*vulcan_module)
+    vulcan_module = create_vulcan_module(prompt, debug=DEBUG)
+    gen_calyx(*vulcan_module, random.randint(0, 9), debug=DEBUG)
 

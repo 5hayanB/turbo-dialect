@@ -1,3 +1,4 @@
+import os
 import calyx.builder as cb
 
 
@@ -35,12 +36,16 @@ def define_outputs(comp, outputs):
     return output_ports_map
 
 
-def gen_calyx(module_name, inputs, outputs, debug=False):
+def gen_calyx(module_name, inputs, outputs, user_id,
+              debug=False):
     calyx_builder = cb.Builder()
     comp = calyx_builder.component(module_name)
     inputs = define_inputs(comp, inputs)
     outputs = define_outputs(comp, outputs)
-    calyx_builder.program.emit()
-    with open(f'{module_name}.futil')
-    return calyx_builder.program.doc()
+    if debug:
+        calyx_builder.program.emit()
+    calyx_path = os.path.join('user_session', str(user_id))
+    os.makedirs(calyx_path, exist_ok=True)
+    with open(os.path.join(calyx_path, f'{module_name}.futil'), 'w', encoding='utf-8') as f:
+        f.write(calyx_builder.program.doc())
 

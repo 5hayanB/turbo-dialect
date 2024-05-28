@@ -113,7 +113,7 @@ def extract_output_ports(prompt, debug=False):
 
 
 def create_vulcan_module(prompt, debug=False):
-    circuit_description = f'CIRCUIT AND DATAFLOW DESCRIPTION:\n{prompt}'
+    circuit_description = f'CIRCUIT DATAFLOW DESCRIPTION:\n{prompt}'
     module_name = extract_module_name(circuit_description, debug=debug)
     inputs = extract_input_ports(circuit_description, debug=debug)
     outputs = extract_output_ports(circuit_description, debug=debug)
