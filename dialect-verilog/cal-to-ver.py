@@ -1,17 +1,28 @@
 import os
 import subprocess
 
-def convert_futil_to_verilog(futil_file_path, output_file_name, turbo_dialect_path, calyx_path):
-    # Check if the input file exists
+def convert_futil_to_verilog(futil_file_path, output_file_name):
+    # Get user's home directory
+    home_dir = os.path.expanduser("~")
+
+    # Define the directories and file paths
+    turbo_dialect_path = os.path.join(home_dir, 'turbo-dialect')
+    calyx_path = os.path.join(home_dir, 'calyx')
+    verilog_directory = os.path.join(turbo_dialect_path, 'verilog')
+    output_file_path = os.path.join(verilog_directory, output_file_name)
+
+    # Check if the necessary directories exist
+    if not os.path.isdir(turbo_dialect_path):
+        print(f"Error: The directory '{turbo_dialect_path}' does not exist.")
+        return
+    if not os.path.isdir(calyx_path):
+        print(f"Error: The directory '{calyx_path}' does not exist.")
+        return
     if not os.path.isfile(futil_file_path):
         print(f"Error: The file '{futil_file_path}' does not exist.")
         return
 
-    # Define the directories and file paths
-    verilog_directory = os.path.join(turbo_dialect_path, 'verilog')
-    output_file_path = os.path.join(verilog_directory, output_file_name)
-
-    # Create the folder if it doesn't exist
+    # Create the verilog directory if it doesn't exist
     os.makedirs(verilog_directory, exist_ok=True)
 
     # Debug statements
@@ -33,8 +44,9 @@ def convert_futil_to_verilog(futil_file_path, output_file_name, turbo_dialect_pa
     else:
         print("Conversion and optimization successful.")
 
-def read_verilog(verilog_file_name, turbo_dialect_path):
-    verilog_file_path = os.path.join(turbo_dialect_path, 'verilog', verilog_file_name)
+def read_verilog(verilog_file_name):
+    home_dir = os.path.expanduser("~")
+    verilog_file_path = os.path.join(home_dir, 'turbo-dialect', 'verilog', verilog_file_name)
     with open(verilog_file_path, 'r') as file:
         verilog_code = file.read()
     return verilog_code
@@ -43,9 +55,7 @@ def read_verilog(verilog_file_name, turbo_dialect_path):
 if __name__ == "__main__":
     futil_file_path = input("Enter the path to your .futil file: ")
     output_file_name = input("Enter the desired output file name (e.g., output.v): ")
-    turbo_dialect_path = input("Enter the path to the turbo-dialect directory: ")
-    calyx_path = input("Enter the path to the calyx directory: ")
     
-    convert_futil_to_verilog(futil_file_path, output_file_name, turbo_dialect_path, calyx_path)
-    verilog_code = read_verilog(output_file_name, turbo_dialect_path)
+    convert_futil_to_verilog(futil_file_path, output_file_name)
+    verilog_code = read_verilog(output_file_name)
     print(verilog_code)
