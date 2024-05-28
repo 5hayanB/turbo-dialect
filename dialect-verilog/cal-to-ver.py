@@ -3,7 +3,7 @@ import subprocess
 
 def convert_futil_to_verilog(futil_file_path, output_file_name):
     # Get user's home directory
-    home_dir = os.path.expanduser("~")
+    home_dir = os.path.expanduser("~/Documents/repos/")
 
     # Define the directories and file paths
     turbo_dialect_path = os.path.join(home_dir, 'turbo-dialect')
@@ -45,7 +45,7 @@ def convert_futil_to_verilog(futil_file_path, output_file_name):
         print("Conversion and optimization successful.")
 
 def read_verilog(verilog_file_name):
-    home_dir = os.path.expanduser("~")
+    home_dir = os.path.expanduser("~/Documents/repos/")
     verilog_file_path = os.path.join(home_dir, 'turbo-dialect', 'verilog', verilog_file_name)
     with open(verilog_file_path, 'r') as file:
         verilog_code = file.read()
@@ -53,8 +53,8 @@ def read_verilog(verilog_file_name):
 
 # Example usage
 if __name__ == "__main__":
-    futil_file_path = input("Enter the path to your .futil file: ")
-    output_file_name = input("Enter the desired output file name (e.g., output.v): ")
+    futil_file_path = "/home/asghar/Documents/repos/turbo-dialect/references/calyxir/pe.futil"
+    output_file_name = "pe.v"
     
     convert_futil_to_verilog(futil_file_path, output_file_name)
     verilog_code = read_verilog(output_file_name)

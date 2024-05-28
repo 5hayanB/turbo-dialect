@@ -101,7 +101,6 @@ body {
 /* Style for the close button */
 .close {
   color: #aaa;
-  content: "I got it!";
   float: right;
   position: static;
 }
@@ -112,6 +111,7 @@ body {
   color: black;
   text-decoration: none;
   cursor: pointer;
+  background-color: lightblue;
   
 }
 

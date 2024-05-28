@@ -8,11 +8,14 @@ sys.path.insert(0, '../../ast_gen/ast_gen.create_parse_tree')
 
 # Import necessary modules
 from django.http import HttpResponse
+import os
+import os
 
 # from .dialects.rtl import generate_rtl_code
 
+
 def index(request):
-    file_path = '/home/asghar/Documents/repos/turbo-dialect/frontend/4x4_systolic_array.v'
+    file_path = '/home/asghar/Documents/repos/turbo-dialect/verilog/pe.v'
     verilog_dict = {}
 
     with open(file_path, 'r') as file:
@@ -21,6 +24,7 @@ def index(request):
 
     context = {'verilog_dict': verilog_dict}
     return render(request, 'index.html', context)
+
 
 def process_input(user_input):
     # Function to process user input
