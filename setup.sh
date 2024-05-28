@@ -10,4 +10,3 @@ flit -f fud/pyproject.toml install -s --deps production
 fud config --create global.root `pwd`
 cd ..
 
-
