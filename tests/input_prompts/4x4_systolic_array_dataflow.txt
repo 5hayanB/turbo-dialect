@@ -1,2 +1,2 @@
-4 bit data pass through a grid of 4 processing elements. The data traversing through the grid will be saved in a register at each level, horizontally and vertically. Each processing element will take the values from the two registers (one from the horizontal and the other from vertical register) in its level, which are then multiplied together, added with the value of an accumulator register and stored into it.
+4 4-bit inputs (2 from the left and 2 from the top) pass through a grid of 4 processing elements. Each cell of the grid consists of 3 registers, an adder and a multiplier. The value of two of the registers is multiplied together and added with the value of the third register. The resultant value is stored back to the third register.
 

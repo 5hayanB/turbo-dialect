@@ -1,0 +1,2 @@
+From the identified output ports, check if there are suitable equal bitwidth output ports. If there are such output ports, only indicate which output ports are needed to be grouped and which ones are not.
+

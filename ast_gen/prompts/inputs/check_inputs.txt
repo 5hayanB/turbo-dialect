@@ -1,0 +1,4 @@
+From the given input ports and generated input ports, check if the input ports match the generated input ports and no other extra port is specified. If they match, only respond with "true", otherwise with "false". Explain in a step-by-step manner how you reached the conclusion. The matching criteria should conform to the following rules.
+* Do not consider port name containing whitespace as a match.
+* The indices should also match.
+

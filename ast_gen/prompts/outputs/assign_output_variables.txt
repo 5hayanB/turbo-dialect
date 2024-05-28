@@ -1,0 +1,5 @@
+Assign variable names to the output ports and specify their respective bitwidths after a colon. The variable naming and bitwidth specification should conform to the following rules.
+* Grouped output ports should be assigned a single variable name with the number of grouped ports specified inside square brackets. Example, `out0[4]:32`, where out0 is the port name, [4] indicates 4 ports being grouped together and 32 is the bitwidth of each port in the grouping.
+* Single output ports are only assigned variable names and their bitwidth after a colon. Example, `dataOut:64`, where dataOut is the variable name of the port and 64 is its bitwidth.
+* There should be no whitespaces in the variable name.
+

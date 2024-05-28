@@ -1,0 +1,2 @@
+From the provided input ports, only list down the input ports inside parenthesis where more than one single port or grouping are separated by commas.
+
