@@ -40,35 +40,37 @@
                 </form>
             </div>
         </div>
-        <div id="OutputContainer" class="col" style="width: 98%;background-color: white;opacity: 50%;height: 650px;margin-right: 30px;z-index:0;">
-            
+        <div id="OutputContainer" class="col" style="width: 98%;background-color: white;opacity: 50%;height: 680px;margin-right: 30px;z-index:0;">
+            <h3 style="font-weight: bold; text-align: center; backdrop-filter: blur(5px);">Output</h3>
             {% comment %} <p id="outputFile" class="output-file" style="width: 98%;background-color: white;opacity: 50%;height: 650px;margin-right: 30px;"></p> {% endcomment %}
             
-            <iframe id="outputFile" class="output-file" style="width: 100%;height: 650px; color: black;" placeholder='OUTPUT'srcdoc={{verilog_dict}}></iframe>
+            <iframe id="outputFile" class="output-file" style="width: 100%;height: 650px; color: black;" placeholder='OUTPUT'></iframe>
         </div>
     </div>
     
-    <div id="loadingContainer" class="progress-container" style="display: none;">
-        <div id="progressBar" class="progress-bar"></div>
-    </div>
-        <button id="downloadButton" onclick="downloadFile()" style="width: 49%; height:5%; margin-left:50%; margin-top:2.7%;"> Download File </button>
+    
+        {% comment %} <button id="downloadButton" onclick="downloadFile()" style="width: 49%; height:5%; margin-left:50%; margin-top:2.7%;"> Download File </button> {% endcomment %}
 
-    <div id="buttonContainer" style="margin-top:-4.1%; margin-left:20px;">
+    <div id="buttonContainer" style="margin-top:0%; margin-left:20px;">
             <button id="startButton" onclick="startProgress()" style="width:48%; opacity:150%">Submit</button>
+
+            <div id="loadingContainer" class="progress-container" style="display: none; margin-top: 1.5%">
+                <div id="progressBar" class="progress-bar"></div>
+            </div>
         </div>
         
 
         <!-- First Popup container -->
     {% comment %} <div id="popup1" class="popup">
         <div class="arrow"></div>
-            <span class="close" onclick="closePopup1()">&times;</span>
-            <p><strong>Here's a quick tutorial on how to use our website:</strong>
+            <p><strong>Here's a quick tutorial on how to use this website:</strong>
                 <br>1. Enter your prompt in the text area on the bottom left.
                 <br>2. Click the "Submit" button to generate the output.
-                <br>3. The output will be displayed in the iframe on the right.
+                <br>3. The output will be displayed on the column at the right.
                 <br>4. Happy Designing!
 
             </p>
+            <button class="close" onclick="closePopup1()">Got it!</button>
     <!-- Add your tutorial content here -->
         
     </div> {% endcomment %}
@@ -82,7 +84,7 @@
 
         
 
-    <div class = "footer" style="align-content: center;padding-top: 30px; position:static;">
+    <div class = "footer" style="align-content: center;padding-top: 10px; position:static;">
         <p style="text-align: center;padding-top: 30px; color: black;"><strong>Powered By MERL</strong></p>
     </div>
     <script src="{% static 'bootstrap.min.js' %}"></script>
