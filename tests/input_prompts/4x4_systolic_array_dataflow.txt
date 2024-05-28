@@ -1,2 +1,0 @@
-4 4-bit inputs (2 from the left and 2 from the top) pass through a grid of 4 processing elements. Each cell of the grid consists of 3 registers, an adder and a multiplier. The value of two of the registers is multiplied together and added with the value of the third register. The resultant value is stored back to the third register.
-

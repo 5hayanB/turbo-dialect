@@ -2,10 +2,9 @@ import os
 import calyx.builder as cb
 
 
-def define_inputs(comp, inputs):
+def define_inputs(comp, inputs, debug):
     input_ports_map = {}
-    input_ports_list = inputs.split(',')
-    for input_port in input_ports_list:
+    for input_port in inputs:
         port = input_port.split(':')
         if '[' in port[0]:
             bracket_left = port[0].index('[')
@@ -19,10 +18,9 @@ def define_inputs(comp, inputs):
     return input_ports_map
 
 
-def define_outputs(comp, outputs):
+def define_outputs(comp, outputs, debug):
     output_ports_map = {}
-    output_ports_list = outputs.split(',')
-    for output_port in output_ports_list:
+    for output_port in outputs:
         port = output_port.split(':')
         if '[' in port[0]:
             bracket_left = port[0].index('[')
@@ -37,11 +35,11 @@ def define_outputs(comp, outputs):
 
 
 def gen_calyx(module_name, inputs, outputs, user_id,
-              debug=False):
+              debug):
     calyx_builder = cb.Builder()
     comp = calyx_builder.component(module_name)
-    inputs = define_inputs(comp, inputs)
-    outputs = define_outputs(comp, outputs)
+    inputs = define_inputs(comp, inputs, debug)
+    outputs = define_outputs(comp, outputs, debug)
     if debug:
         calyx_builder.program.emit()
     calyx_path = os.path.join('user_session', str(user_id))

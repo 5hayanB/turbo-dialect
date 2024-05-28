@@ -14,7 +14,7 @@ def get_prompt(file):
 
 
 if __name__ == '__main__':
-    prompt = get_prompt('tests/input_prompts/processing_element.txt')
+    prompt = get_prompt('./tests/input_prompts/2x2_systolic_array.txt')
     vulcan_module = create_vulcan_module(prompt, debug=DEBUG)
     gen_calyx(*vulcan_module, random.randint(0, 9), debug=DEBUG)
 
