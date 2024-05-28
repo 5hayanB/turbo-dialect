@@ -120,5 +120,5 @@ def create_vulcan_module(prompt, debug=False):
     print(f'{module_name = }')
     print(f'{inputs = }')
     print(f'{outputs = }')
-    return module_name, inputs, outputs
+    return {"module_name":module_name, "inputs":inputs, "outputs": outputs}
 
