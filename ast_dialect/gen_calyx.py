@@ -41,5 +41,6 @@ def gen_calyx(module_name, inputs, outputs, debug=False):
     inputs = define_inputs(comp, inputs)
     outputs = define_outputs(comp, outputs)
     calyx_builder.program.emit()
+    with open(f'{module_name}.futil')
     return calyx_builder.program.doc()
 
