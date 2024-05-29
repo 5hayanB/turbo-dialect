@@ -54,35 +54,64 @@ def extract_input_ports(prompt, debug):
     LLM.reset()
     prompts_dir = os.path.join('ast_gen', 'prompts', 'inputs')
     # Identify inputs
-    response = llm_response(prompts_dir, 'identify_inputs.txt', prompt, debug,
-                            'identified_inputs')
-    identified_inputs = f'IDENTIFIED INPUT PORTS:\n{response}'
+    sys_prompt_file = 'identify_inputs.txt'
+    while True:
+        response = llm_response(prompts_dir, sys_prompt_file, prompt, debug,
+                                'identified_inputs')
+        if 'CONCLUSION' in response:
+            conclusion_pos = response.index('\nCONCLUSION:\n') + 12
+            conclusion = response[conclusion_pos:]
+            break
+        else:
+            sys_prompt_file = 'inputs_conclusion.txt'
+    identified_inputs = f'IDENTIFIED INPUT PORTS:{conclusion}'
     # Check grouping
     response = llm_response(prompts_dir, 'check_input_grouping.txt', identified_inputs, debug,
                             'input_grouping_check')
     input_grouping_check = f'IDENTIFIED INPUT PORTS:\n{response}'
     # Assign variables
-    response = llm_response(prompts_dir, 'assign_input_variables.txt', input_grouping_check, debug,
-                            'assign_input_variables')
-    input_ports = re.findall(r'[a-zA-Z_][a-zA-Z0-9_]*(?:\[\d+\])?:\d+', response)
-    return input_ports
+    # response = llm_response(prompts_dir, 'assign_input_variables.txt', input_grouping_check, debug,
+    #                         'assign_input_variables')
+    # # input_ports = str(re.findall(r'[a-zA-Z_][a-zA-Z0-9_]*(?:\[\d+\])?:\d+', response))
+    # assign_input_variables = f'INPUT PORTS:\n{response}'
+    # # Input ports
+    # sys_prompt_file = 'input_ports.txt'
+    # while True:
+    #     grammar = LlamaGrammar.from_file(file=os.path.join('ast_gen', 'grammar', 'vulcan_ports.gbnf'))
+    #     input_ports = llm_response(prompts_dir, sys_prompt_file, assign_input_variables, debug,
+    #                                'input_ports', grammar)
+    #     # Check inputs
+    #     check_inputs = f'{assign_input_variables}\nGENERATED INPUT PORTS:\n{input_ports}'
+    #     response = llm_response(prompts_dir, 'check_inputs.txt', check_inputs, debug,
+    #                             'check_inputs').lower()
+    #     if 'true' in response:
+    #         break
+    #     sys_prompt_file = 'inputs_correction.txt'
+    # return input_ports
 
 
-def extract_output_ports(prompt, debug=False):
+def extract_output_ports(prompt, debug):
     LLM.reset()
     prompts_dir = os.path.join('ast_gen', 'prompts', 'outputs')
     # Identify outputs
-    response = llm_response(prompts_dir, 'identify_outputs.txt', prompt, debug,
-                            'identified_outputs')
-    identified_outputs = f'IDENTIFIED OUTPUT PORTS:\n{response}'
+    sys_prompt_file = 'identify_outputs.txt'
+    while True:
+        response = llm_response(prompts_dir, sys_prompt_file, prompt, debug,
+                                'identified_outputs')
+        if 'CONCLUSION' in response:
+            conclusion_pos = response.index('\nCONCLUSION:\n') + 12
+            conclusion = response[conclusion_pos:]
+            break
+        else:
+            sys_prompt_file = 'outputs_conclusion.txt'
+    identified_outputs = f'IDENTIFIED OUTPUT PORTS:{conclusion}'
     # Check grouping
-    response = llm_response(prompts_dir, 'check_output_grouping.txt', identified_outputs, debug,
-                            'output_grouping_check')
-    output_grouping_check = f'IDENTIFIED OUTPUT PORTS:\n{response}'
-    # Assign variables
-    response = llm_response(prompts_dir, 'assign_output_variables.txt', output_grouping_check, debug,
-                            'assign_output_variables')
-    output_ports = re.findall(r'[a-zA-Z_][a-zA-Z0-9_]*(?:\[\d+\])?:\d+', response)
+    # response = llm_response(prompts_dir, 'check_output_grouping.txt', identified_outputs, debug,
+    #                         'output_grouping_check')
+    # output_grouping_check = f'IDENTIFIED OUTPUT PORTS:\n{response}'
+    # # Assign variables
+    # response = llm_response(prompts_dir, 'assign_output_variables.txt', output_grouping_check, debug,
+    #                         'assign_output_variables')
     # assign_output_variables = f'OUTPUT PORTS:\n{response}'
     # # Output ports
     # sys_prompt_file = 'output_ports.txt'
@@ -97,7 +126,7 @@ def extract_output_ports(prompt, debug=False):
     #     if 'true' in response:
     #         break
     #     sys_prompt_file = 'outputs_correction.txt'
-    return output_ports
+    # return output_ports
 
 
 def create_vulcan_module(prompt, debug):

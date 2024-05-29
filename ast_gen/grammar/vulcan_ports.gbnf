@@ -1,6 +1,6 @@
 root ::= ports
 
-ports ::= "(" port+ ")"
+ports ::= "ports{" port+ "}"
 port ::= ((identifier | arrayDecl) ":" naturalNum) ("," (identifier | arrayDecl) ":" naturalNum)*
 
 # Array

@@ -1,2 +1,5 @@
-From the provided input ports, only list down the input ports inside parenthesis where more than one single port or grouping are separated by commas.
+From the provided input ports, only list the input ports inside braces where more than one single port or grouping are separated by commas. Following is the listing template.
+```
+inputs{in0:32,in1[2]:8}
+```
 
