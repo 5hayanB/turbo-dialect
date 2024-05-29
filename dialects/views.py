@@ -17,7 +17,7 @@ import os
 
 
 def index(request):
-    file_path = '../verilog/pe.v'
+    file_path = 'verilog/pe.v'
     verilog_dict = {}
 
     with open(file_path, 'r') as file:

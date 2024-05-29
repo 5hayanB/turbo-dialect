@@ -66,8 +66,10 @@ def extract_input_ports(prompt, debug):
             sys_prompt_file = 'inputs_conclusion.txt'
     identified_inputs = f'IDENTIFIED INPUT PORTS:{conclusion}'
     # Check grouping
-    response = llm_response(prompts_dir, 'check_input_grouping.txt', identified_inputs, debug,
-                            'input_grouping_check')
+    sys_prompt_file = 'check_input_grouping.txt'
+    while True:
+        response = llm_response(prompts_dir, sys_prompt_file, identified_inputs, debug,
+                                'input_grouping_check')
     input_grouping_check = f'IDENTIFIED INPUT PORTS:\n{response}'
     # Assign variables
     # response = llm_response(prompts_dir, 'assign_input_variables.txt', input_grouping_check, debug,
