@@ -52,14 +52,9 @@ function displayOutputFile(folderName) {
   .then(response => response.text())
   .then(data => {
     console.log(data);
-    var output = document.getElementById("output");
+    var output = document.getElementById("outputFile");
     output.innerHTML = data;
   })
-}
-
-function displayOutputFileOnIframe(folderName) {
-  var iframe = document.getElementById("outputFile");
-  iframe.src = `get_file?folder=${folderName}`;
 }
 const folderName = '../../verilog/pe.v';
 
