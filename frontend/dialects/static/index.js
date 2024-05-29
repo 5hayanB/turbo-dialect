@@ -63,10 +63,9 @@ function displayOutputFileOnIframe(folderName) {
 }
 const folderName = '../../verilog/pe.v';
 
-function downloadFile() {
+function downloadFile(folderName) {
   // var downloadButton = document.getElementById("downloadButton");
-  var fileUrl = '/home/asghar/Documents/repos/turbo-dialect/frontend/4x4_systolic_array.v'; // Replace with the correct URL
-  
+  fetch(`get_file?folder=${folderName}`)  
   var link = document.createElement('a');
   link.href = fileUrl;
   link.download = fileUrl.split('/').pop();

@@ -17,7 +17,7 @@ import os
 
 
 def index(request):
-    file_path = '/home/5hayanB/repositories/my_repositories/github/turbo-dialect/verilog/pe.v'
+    file_path = '../verilog/pe.v'
     verilog_dict = {}
 
     with open(file_path, 'r') as file:
@@ -42,7 +42,7 @@ def index(request):
 #     return render(request, 'index.html')
 
 import sys
-sys.path.append('/home/asghar/Documents/repos/turbo-dialect/ast_gen')
+sys.path.append('../ast_gen')
 from ast_gen.ast_gen import create_vulcan_module
 from ast_dialect.gen_calyx import gen_calyx
 from dialect_verilog.cal_to_ver import convert_futil_to_verilog
@@ -63,7 +63,9 @@ def process_input(request):
     result3 = ast["outputs"]
     calyx = gen_calyx(result1, result2, result3, 456,debug=False)
     verilog = convert_futil_to_verilog(calyx, 'pe.v')
-    return verilog > "/home/asghar/Documents/repos/turbo-dialect/verilog/pe.v" # Redirect to a success page
+    with open('../verilog/pe.v', 'w') as f:
+      f.write(verilog)
+    return verilog  # Redirect to a success page
   else:
     # Render the form for the first time
     return render(request, 'index.html')

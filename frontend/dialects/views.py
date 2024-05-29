@@ -28,19 +28,6 @@ def index(request):
     return render(request, 'index.html', context)
 
 
-# def process_input(user_input):
-#     # Function to process user input
-#     # For example, you can perform some text processing here
-#     create_parse_tree(user_input)
-#     return user_input.upper()  # Just converting input to uppercase for demonstration
-
-# def input_view(request):
-#     if request.method == 'POST':
-#         user_input = request.POST.get('user_input', '')  # Get the user input from the POST data
-#         output = process_input(user_input)
-#         return render(request, 'index.html', {'output': output})
-#     return render(request, 'index.html')
-
 import sys
 sys.path.append('/home/asghar/Documents/repos/turbo-dialect/ast_gen')
 from ast_gen.ast_gen import create_vulcan_module
