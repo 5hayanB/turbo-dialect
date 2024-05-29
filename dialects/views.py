@@ -65,7 +65,6 @@ def process_input(request):
     verilog = convert_futil_to_verilog(calyx, 'pe.v')
     with open('../verilog/pe.v', 'w') as f:
       f.write(verilog)
-    return verilog  # Redirect to a success page
   else:
     # Render the form for the first time
     return render(request, 'index.html')

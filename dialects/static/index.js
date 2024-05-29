@@ -26,13 +26,11 @@ function startProgress() {
       displayOutputFile(folderName);
       // Show the download button
       downloadButton.style.display = "block";
-      displayOutputFileOnIframe(folderName);
     } else {
       width++;
       progressBar.style.width = width + "%";
       if (width === 100) {
         // Call the function to display the output file on an iframe
-        displayOutputFileOnIframe(folderName);
         // Show the download button
         downloadButton.style.display = "block";  
       }
@@ -43,10 +41,10 @@ function startProgress() {
 
 function displayOutputFile(folderName) {
   // Replace 'file.pdf' with the path to your file
-  // var outputFileUrl = '/home/asghar/Documents/repos/turbo-dialect/frontend/4x4_systolic_array.v';
-  // var outputFile = document.getElementById("outputFile");
+  var outputFileUrl = '/home/asghar/Documents/repos/turbo-dialect/frontend/4x4_systolic_array.v';
+  var outputFile = document.getElementById("outputFile");
   
-  // outputFile.src = outputFileUrl;
+  outputFile.src = outputFileUrl;
   // alert("File is ready for download");
   fetch(`get_file?folder=${folderName}`)
   .then(response => response.text())
