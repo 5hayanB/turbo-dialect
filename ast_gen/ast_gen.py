@@ -34,17 +34,19 @@ def llm_response(sys_prompt_dir, sys_prompt_file, user_prompt, debug,
     return response['choices'][0]['message']['content']
 
 
+def conclusion_start(llm_response)
+
+
 def extract_module_name(prompt, debug):
     LLM.reset()
     prompts_dir = os.path.join('ast_gen', 'prompts', 'module_name')
     sys_prompt_file = 'extract_name.txt'
-    correct = False
-    while not correct:
+    while True:
         module_name = llm_response(prompts_dir, sys_prompt_file, prompt, debug,
                                    'module_name')
         module_name = re.findall('"[a-zA-Z_][a-zA-Z_0-9]*"', module_name)
         if module_name:
-            correct = True
+            break
         else:
             sys_prompt_file = 'name_inclusion.txt'
     return module_name[0].strip('"')
@@ -70,10 +72,16 @@ def extract_input_ports(prompt, debug):
     while True:
         response = llm_response(prompts_dir, sys_prompt_file, identified_inputs, debug,
                                 'input_grouping_check')
-    input_grouping_check = f'IDENTIFIED INPUT PORTS:\n{response}'
+        if 'CONCLUSION' in response:
+            conclusion_pos = response.index('\nCONCLUSION:\n') + 12
+            conclusion = response[conclusion_pos:]
+            break
+        else:
+            sys_prompt_file = 'inputs_conclusion.txt'
+    input_grouping_check = f'IDENTIFIED INPUT PORTS:\n{conclusion}'
     # Assign variables
-    # response = llm_response(prompts_dir, 'assign_input_variables.txt', input_grouping_check, debug,
-    #                         'assign_input_variables')
+    response = llm_response(prompts_dir, 'assign_input_variables.txt', identified_inputs+input_grouping_check, debug,
+                            'assign_input_variables')
     # # input_ports = str(re.findall(r'[a-zA-Z_][a-zA-Z0-9_]*(?:\[\d+\])?:\d+', response))
     # assign_input_variables = f'INPUT PORTS:\n{response}'
     # # Input ports
@@ -135,10 +143,10 @@ def create_vulcan_module(prompt, debug):
     circuit_description = f'CIRCUIT DATAFLOW DESCRIPTION:\n{prompt}'
     module_name = extract_module_name(circuit_description, debug=debug)
     inputs = extract_input_ports(circuit_description, debug=debug)
-    outputs = extract_output_ports(circuit_description, debug=debug)
+    # outputs = extract_output_ports(circuit_description, debug=debug)
     if debug:
         print(f'{module_name = }')
         print(f'{inputs = }')
-        print(f'{outputs = }')
-    return module_name, inputs, outputs
+        # print(f'{outputs = }')
+    return module_name, inputs#, outputs
 
