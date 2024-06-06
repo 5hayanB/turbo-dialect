@@ -92,33 +92,18 @@ def extract_ports(prompt, ports, debug):
         sys_prompt = f'ROLE:\n{f.read()}'
     response = llm_response(sys_prompt, identified_ports+port_grouping_indication, debug, f'assign_{ports}_variables')
     conclusion = retrieve_conclusion(response, debug)
-    input_ports = str(re.findall(r'[a-zA-Z_][a-zA-Z0-9_]*(?:\[\d+\])?:\d+', conclusion))
-    print(f'{input_ports = }')
-    assign_input_variables = f'INPUT PORTS:\n{response}'
-    # # Input ports
-    # sys_prompt_file = 'input_ports.txt'
-    # while True:
-    #     grammar = LlamaGrammar.from_file(file=os.path.join('ast_gen', 'grammar', 'vulcan_ports.gbnf'))
-    #     input_ports = llm_response(prompts_dir, sys_prompt_file, assign_input_variables, debug,
-    #                                'input_ports', grammar)
-    #     # Check inputs
-    #     check_inputs = f'{assign_input_variables}\nGENERATED INPUT PORTS:\n{input_ports}'
-    #     response = llm_response(prompts_dir, 'check_inputs.txt', check_inputs, debug,
-    #                             'check_inputs').lower()
-    #     if 'true' in response:
-    #         break
-    #     sys_prompt_file = 'inputs_correction.txt'
-    # return input_ports
+    ports = str(re.findall(r'[a-zA-Z_][a-zA-Z0-9_]*(?:\[\d+\])?:\d+', conclusion))
+    return ports
 
 
-def create_vulcan_module(prompt, debug):
+def create_module(prompt, debug):
     circuit_description = f'CIRCUIT DATAFLOW DESCRIPTION:\n{prompt}'
     module_name = extract_module_name(circuit_description, debug)
     inputs = extract_ports(circuit_description, 'inputs', debug)
-    # outputs = extract_ports(circuit_description, 'outputs', debug)
+    outputs = extract_ports(circuit_description, 'outputs', debug)
     if debug:
         print(f'{module_name = }')
         print(f'{inputs = }')
-        # print(f'{outputs = }')
-    return module_name, inputs#, outputs
+        print(f'{outputs = }')
+    return module_name, inputs, outputs
 
