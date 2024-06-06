@@ -91,7 +91,9 @@ def extract_ports(prompt, ports, debug):
     with open(sys_prompt_file, 'r', encoding='utf-8') as f:
         sys_prompt = f'ROLE:\n{f.read()}'
     response = llm_response(sys_prompt, identified_ports+port_grouping_indication, debug, f'assign_{ports}_variables')
-    # input_ports = str(re.findall(r'[a-zA-Z_][a-zA-Z0-9_]*(?:\[\d+\])?:\d+', response))
+    conclusion = retrieve_conclusion(response, debug)
+    input_ports = str(re.findall(r'[a-zA-Z_][a-zA-Z0-9_]*(?:\[\d+\])?:\d+', conclusion))
+    print(f'{input_ports = }')
     assign_input_variables = f'INPUT PORTS:\n{response}'
     # # Input ports
     # sys_prompt_file = 'input_ports.txt'
