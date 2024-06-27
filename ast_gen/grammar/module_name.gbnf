@@ -1,0 +1,4 @@
+root ::= "\"" identifier "\""
+
+identifier ::= [A-Z] [a-zA-Z0-9]*
+

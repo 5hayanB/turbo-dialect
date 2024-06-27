@@ -7,6 +7,7 @@ from models import MODELS
 # load model
 MODEL = MODELS['meta-llama-3-8b-instruct']
 LLM = Llama(model_path=MODEL['path'], n_ctx=MODEL['n_ctx'], n_gpu_layers=MODEL['n_gpu_layers'])
+GRAMMAR_DIR = os.path.join('ast_gen', 'grammar')
 
 
 def llm_response(sys_prompt, user_prompt, debug, debug_msg='',
@@ -56,17 +57,12 @@ def retrieve_conclusion(response, debug):
 def extract_module_name(prompt, debug):
     LLM.reset()
     prompts_dir = os.path.join('ast_gen', 'prompts', 'module_name')
-    sys_prompt_file = os.path.join(prompts_dir, 'extract_name.txt')
-    while True:
-        with open(sys_prompt_file, 'r', encoding='utf-8') as f:
-            sys_prompt = f'ROLE:\n{f.read()}'
-        module_name = llm_response(sys_prompt, prompt, debug, 'module_name')
-        module_name = re.findall('"[a-zA-Z_][a-zA-Z_0-9]*"', module_name)
-        if module_name:
-            break
-        else:
-            sys_prompt_file = os.path.join(prompts_dir, 'name_inclusion.txt')
-    return module_name[0].strip('"')
+    with open(os.path.join(prompts_dir, 'extract_name.txt')) as f:
+        sys_prompt = f'ROLE:\n{f.read()}'
+    grammar_file = LlamaGrammar.from_file(file=os.path.join(GRAMMAR_DIR, 'module_name.gbnf'))
+    module_name = llm_response(sys_prompt, prompt, debug, 'module_name',
+                               grammar_file)
+    return module_name.strip('"')
 
 
 def extract_ports(prompt, ports, debug):
@@ -99,11 +95,11 @@ def extract_ports(prompt, ports, debug):
 def create_module(prompt, debug):
     circuit_description = f'CIRCUIT DATAFLOW DESCRIPTION:\n{prompt}'
     module_name = extract_module_name(circuit_description, debug)
-    inputs = extract_ports(circuit_description, 'inputs', debug)
-    outputs = extract_ports(circuit_description, 'outputs', debug)
+    # inputs = extract_ports(circuit_description, 'inputs', debug)
+    # outputs = extract_ports(circuit_description, 'outputs', debug)
     if debug:
         print(f'{module_name = }')
-        print(f'{inputs = }')
-        print(f'{outputs = }')
-    return module_name, inputs, outputs
+    #     print(f'{inputs = }')
+    #     print(f'{outputs = }')
+    # return module_name, inputs, outputs
 

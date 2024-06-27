@@ -1,0 +1,11 @@
+root ::= "output ports:" ports
+
+ports ::= port ("," port)*
+port ::= (identifier | arrayDecl) ":" naturalNum
+
+# Array
+arrayDecl ::= identifier ("[" naturalNum "]")+
+
+# Primitives
+identifier ::= [a-z] [a-zA-Z0-9]*
+naturalNum ::= [1-9] [0-9]*
